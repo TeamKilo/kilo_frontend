@@ -1,12 +1,12 @@
-function JoinGame() {
+function JoinGame(props) {
     return (
-        <form class="form-inline">
-            <div class="input-group">
-                <div class="col-10">
-                    <input class="form-control" placeholder="Game ID" />
+        <form className="form-inline">
+            <div className="input-group">
+                <div className="col-10">
+                    <input className="form-control" id="game-ID-enter" placeholder="Game ID" />
                 </div>
-                <div class="col-2">
-                    <button type="submit" class="btn btn-primary mb-2">Join</button>
+                <div className="col-2">
+                    <button type="button" className="btn btn-primary mb-2" onClick={() => props.joinGame(document.getElementById("game-ID-enter").value)}>View</button>
                 </div>
             </div>
         </form>
