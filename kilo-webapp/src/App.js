@@ -6,25 +6,24 @@ import React from 'react';
 class App extends React.Component {
   constructor() {
     super()
-    this.state = 0;
   }
 
-  joinGame(i) {
-    console.log(i)
+  joinGame(game_id) {
+    console.log(game_id)
   }
 
   render() {
     return (
       <div>
         <div><Title /></div>
-        <div style={{ height: "90vh" }} class="d-grid align-items-center container">
-          <div class="row">
-            <div class="col-4 text-center">
+        <div style={{ height: "90vh" }} className="d-grid align-items-center container">
+          <div className="row">
+            <div className="col-4 text-center">
               <Menu
                 joinGame={this.joinGame}
               />
             </div>
-            <div class="col-8 text-center">
+            <div className="col-8 text-center">
               <GameView
                 state={this.state}
               />
