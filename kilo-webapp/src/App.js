@@ -6,11 +6,13 @@ import React from 'react';
 class App extends React.Component {
   constructor() {
     super()
-    this.game_id = null;
     this.joinGame = this.joinGame.bind(this);
     this.getGameState = this.getGameState.bind(this);
-    this.board = [];
-    this.players = [];
+    this.state = {
+      game_id: null,
+      game_name: "none",
+      game_state: {board:[], players:[]},
+    }
   }
 
   joinGame(game_id) {
@@ -42,8 +44,11 @@ class App extends React.Component {
         }
       }
     });
-    console.log(board);
-    this.setState({board: board});
+    this.setState({
+      game_state: {board: board, players: data.players},
+      game_name: "connect_4"
+    });
+    console.log(this.board);
   }
 
   render() {
@@ -60,8 +65,8 @@ class App extends React.Component {
             </div>
             <div className="col-8 text-center">
               <GameView
-                gameName={"connect_4"}
-                gameState={{board: this.board, players: this.players}}
+                gameName={this.state.game_name}
+                gameState={this.state.game_state}
               />
             </div>
           </div>

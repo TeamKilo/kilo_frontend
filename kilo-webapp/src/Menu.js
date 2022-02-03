@@ -13,7 +13,7 @@ class Menu extends React.Component {
     const game_id = 1234
     const game_id_element = document.getElementById("game-id-display")
     game_id_element.innerHTML = `Game ID: ${game_id}`;
-    game_id_element.removeAttribute("hidden")
+    game_id_element.style.visibility = "visible";
     this.props.joinGame(game_id);
   }
 
@@ -24,8 +24,8 @@ class Menu extends React.Component {
           joinGame = {this.props.joinGame}
         />
         <button type="button" className="btn btn-primary" onClick={() => this.createGame()}>Create Game</button>
-        <h2 id="game-id-display" hidden>Game ID:</h2>
-        <button type=" button" className="btn btn-primary" onClick={() => this.props.getGameState()}>Get State</button>
+        <h2 id="game-id-display" style={{visibility: "hidden"}}>Game ID:</h2>
+        <button type=" button" className="btn btn-secondary" onClick={() => this.props.getGameState()}>Get State</button>
       </div>
     );
   }
