@@ -13,8 +13,8 @@ class Menu extends React.Component {
   }
 
   createGame() {
-    //const data = httpRequest("team-kilo-server.herokuapp.com/api/create-game", "POST", JSON.stringify({ name: "connect_4" }));
-    const game_id = 1234; //data.game_id;
+    const data = httpRequest("https://team-kilo-server.herokuapp.com/api/create-game", "POST", { name: "connect_4" });
+    const game_id = data.game_id;
     this.setState({createdID: game_id.toString()});
     this.props.joinGame(game_id);
   }
