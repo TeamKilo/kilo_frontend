@@ -1,17 +1,23 @@
-import Connect4Grid from "./Connect4Grid";
+import Connect4 from "./connect4/Connect4";
+import NoGame from "./NoGame";
 
 function GameView(props) {
     const gameName = props.gameName;
     const gameState = props.gameState;
+
     let element = (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
             Error: unrecognised game.
         </div>
     );
 
-    if (gameName === "connect_4") {
+    if (gameName === "none") {
         element = (
-            <Connect4Grid gridState={gameState.board} />
+            <NoGame />
+        );
+    } else if (gameName === "connect_4") {
+        element = (
+            <Connect4 gameState={gameState} />
         );
     }
 
