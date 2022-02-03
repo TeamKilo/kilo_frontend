@@ -30,10 +30,10 @@ class App extends React.Component {
     data.payload.forEach((col) => {
       for (var y = 0; y < col_height; y++) {
         if (y < col.length) {
-          if (col[y] == data.players[0]) {
+          if (col[y] === data.players[0]) {
             board[(col_height - 1) - y].push(1);
           }
-          else if (col[y] == data.players[1]) {
+          else if (col[y] === data.players[1]) {
             board[(col_height - 1) - y].push(2);
           }
         }
