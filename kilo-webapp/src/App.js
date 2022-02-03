@@ -4,8 +4,8 @@ import GameView from './GameView';
 import React from 'react';
 
 class App extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.joinGame = this.joinGame.bind(this);
     this.getGameState = this.getGameState.bind(this);
     this.state = {

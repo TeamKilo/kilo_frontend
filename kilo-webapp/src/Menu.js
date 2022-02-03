@@ -23,7 +23,7 @@ class Menu extends React.Component {
           joinGame={this.props.joinGame}
         />
         <button type="button" className="btn btn-primary" onClick={() => this.createGame()}>Create Game</button>
-        <h2 id="game-id-display" class="text-left" style={{ visibility: "hidden" }}>Game ID:</h2>
+        <h2 id="game-id-display" className="text-left" style={{ visibility: "hidden" }}>Game ID:</h2>
         <button type=" button" className="btn btn-secondary" onClick={() => this.props.getGameState()}>Get State</button>
       </div>
     );
