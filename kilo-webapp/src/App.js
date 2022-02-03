@@ -25,7 +25,7 @@ class App extends React.Component {
       //return;
     }
     //const data = httpRequest(`/api/${this.props.game_id}/get-state`, "GET", none);
-    var data = {payload: [["a", "b"], [], ["b", "b", "b", "a"], ["a", "a", "b"], ["a", "b", "b", "a"], ["a", "a", "b", "a"], ["b", "a", "b", "b", "a"]], players: ["a", "b"]}
+    var data = {payload: [["a", "b"], [], ["b", "b", "b", "a"], ["a", "a", "b"], ["a", "b", "b", "a"], ["a", "a", "b", "a"], ["b", "a", "b", "b", "a"]], players: ["a", "b"], game_name: "connect_4"}
     var board = [[], [], [], [], [], []];
     const col_height = 6;
 
@@ -46,24 +46,23 @@ class App extends React.Component {
     });
     this.setState({
       game_state: {board: board, players: data.players},
-      game_name: "connect_4"
+      game_name: data.game_name
     });
-    console.log(this.board);
   }
 
   render() {
     return (
       <div>
         <div><Title /></div>
-        <div style={{ height: "90vh" }} className="d-grid align-items-center container">
-          <div className="row">
-            <div className="col-4 text-center">
+        <div className="d-grid container">
+          <div className="row align-items-center" style={{ height: "90vh" }}>
+            <div className="col-4">
               <Menu
                 joinGame={this.joinGame}
                 getGameState={this.getGameState}
               />
             </div>
-            <div className="col-8 text-center">
+            <div className="col-8">
               <GameView
                 gameName={this.state.game_name}
                 gameState={this.state.game_state}

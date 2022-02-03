@@ -4,7 +4,7 @@ function GameView(props) {
     const gameName = props.gameName;
     const gameState = props.gameState;
     let element = (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
             Error: unrecognised game.
         </div>
     );
