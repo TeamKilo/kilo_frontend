@@ -1,5 +1,5 @@
 import Title from './Title';
-import Menu from './Menu';
+import Menu from './menu/Menu';
 import GameView from './GameView';
 import React from 'react';
 
