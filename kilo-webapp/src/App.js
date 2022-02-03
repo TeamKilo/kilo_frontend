@@ -6,10 +6,12 @@ import React from 'react';
 class App extends React.Component {
   constructor() {
     super()
+    this.game_id = null;
+    this.joinGame = this.joinGame.bind(this)
   }
 
   joinGame(game_id) {
-    console.log(game_id)
+    this.setState({game_id: game_id});
   }
 
   render() {
