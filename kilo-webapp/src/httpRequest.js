@@ -4,9 +4,12 @@ function httpRequest(url, method, body) {
         return {};
     }
     fetch(url, {
+        mode: "no-cors",
         method: method,
         body: JSON.stringify(body)
-    }).then(res => { return res.json() })
+    }).then(res => { console.log(res); return res.json() })
         .then(res => alert(res))
         .catch(res => console.log('Request failed', res));
 }
+
+export default httpRequest;

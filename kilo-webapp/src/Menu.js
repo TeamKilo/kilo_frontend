@@ -8,8 +8,8 @@ class Menu extends React.Component {
   }
 
   createGame() {
-    //const data = httpRequest("team-kilo-server.herokuapp.com/api/create-game", "POST", JSON.stringify({ name: "connect_4" }));
-    const game_id = 1234; //data.game_id;
+    const data = httpRequest("https://team-kilo-server.herokuapp.com/api/create-game", "POST", JSON.stringify({ name: "connect_4" }));
+    const game_id = data.game_id;
     const game_id_element = document.getElementById("game-id-display");
     game_id_element.innerHTML = `Game ID: ${game_id}`;
     game_id_element.style.visibility = "visible";
