@@ -6,7 +6,9 @@ function Connect4(props) {
         <div>
             <h2>Connect 4</h2>
             <Connect4Grid gridState={props.gameState.board} />
-            <Connect4Players names={props.gameState.players} />
+            <div class="text-center">
+                <Connect4Players names={props.gameState.players} />
+            </div>
         </div>
     );
 }
