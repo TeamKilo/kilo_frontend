@@ -1,0 +1,19 @@
+.connect4cell {
+    height: 2em;
+}
+
+#connect4table {
+    margin-right: auto;
+    margin-left: auto;
+    width: 21em ;
+    table-layout: fixed;
+    border-color: black;
+}
+
+.player1 {
+    background-color: red !important;
+}
+
+.player2 {
+    background-color: yellow !important;
+}
