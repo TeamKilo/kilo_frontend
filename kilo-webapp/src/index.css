@@ -12,8 +12,10 @@
 
 .player1 {
     background-color: red !important;
+    color: red !important;
 }
 
 .player2 {
     background-color: yellow !important;
+    color: yellow !important;
 }
