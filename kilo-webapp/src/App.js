@@ -62,7 +62,7 @@ class App extends React.Component {
                 getGameState={this.getGameState}
               />
             </div>
-            <div className="col-8">
+            <div className="col-8 text-center">
               <GameView
                 gameName={this.state.game_name}
                 gameState={this.state.game_state}
