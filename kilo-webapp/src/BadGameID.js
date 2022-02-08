@@ -1,10 +1,9 @@
 function BadGameID() {
     return (
-        <div className="card text-white bg-danger mb-3">
-            <div className="card-header text-center">Invalid Game ID</div>
-            <div className="card-body">
-                <p className="card-text text-center">No game with the provided ID could be found</p>
-            </div>
+        <div className="alert alert-danger" role="alert">
+            <h2 className="text-center">Invalid Game ID</h2>
+            <hr />
+            <p className="text-center">No game with the provided ID could be found</p>
         </div>
     );
 }
