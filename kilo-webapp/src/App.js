@@ -77,7 +77,7 @@ class App extends React.Component {
                 gameName={this.state.game_name}
                 gameState={this.state.game_state}
               />*/}
-              <ListGames />
+              <ListGames joinGame={console.log}/>
             </div>
           </div>
         </div>
