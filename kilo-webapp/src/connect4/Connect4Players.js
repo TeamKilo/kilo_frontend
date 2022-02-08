@@ -3,8 +3,9 @@ import React from "react";
 function Connect4Players(props) {
     return (
         <React.Fragment>
-            <p><span className="player1">▉</span> {props.names[0]}</p>
-            <p><span className="player2">▉</span> {props.names[1]}</p>
+            {[0, 1].map(index =>
+                <p key={index}><span className={"player" + (index + 1)}>▉</span> {props.names.length > index ? props.names[index] : "waiting for player..."}</p>
+            )}
         </React.Fragment>
     );
 }

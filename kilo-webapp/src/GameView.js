@@ -1,12 +1,17 @@
 import Connect4 from "./connect4/Connect4";
 import NoGame from "./NoGame";
+import BadGameID from "./BadGameID";
 
 function GameView(props) {
     const gameName = props.gameName;
     const gameState = props.gameState;
 
     if (gameName === "none") {
-        return <NoGame />;
+        if (props.badID) {
+            return <BadGameID />
+        } else {
+            return <NoGame />;
+        }
     } else if (gameName === "connect_4") {
         return <Connect4 gameState={gameState} />
     }

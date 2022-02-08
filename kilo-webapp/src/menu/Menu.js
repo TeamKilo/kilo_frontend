@@ -14,13 +14,12 @@ class Menu extends React.Component {
 
   createGame() {
     axios.post("https://team-kilo-server.herokuapp.com/api/create-game", { name: "connect_4" })
-    .then(res => console.log(res));
-    /*
-    .then(data => {
-      const game_id = data.game_id;
+    .then(res =>
+    {
+      const game_id = res.data.game_id;
       this.setState({ createdID: game_id.toString() });
       this.props.joinGame(game_id);
-    });*/
+    });
   }
 
   render() {
