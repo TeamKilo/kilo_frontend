@@ -1,7 +1,7 @@
 import JoinGame from "./JoinGame";
-import httpRequest from "../httpRequest";
 import React from 'react';
 import CreateGame from "./CreateGame";
+import axios from "axios";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -13,12 +13,14 @@ class Menu extends React.Component {
   }
 
   createGame() {
-    httpRequest("https://team-kilo-server.herokuapp.com/api/create-game", "POST", { name: "connect_4" })
+    axios.post("https://team-kilo-server.herokuapp.com/api/create-game", { name: "connect_4" })
+    .then(res => console.log(res));
+    /*
     .then(data => {
       const game_id = data.game_id;
       this.setState({ createdID: game_id.toString() });
       this.props.joinGame(game_id);
-    });
+    });*/
   }
 
   render() {
