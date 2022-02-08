@@ -1,5 +1,4 @@
 import JoinGame from "./JoinGame";
-import httpRequest from "../httpRequest";
 import React from 'react';
 import CreateGame from "./CreateGame";
 import axios from "axios";
