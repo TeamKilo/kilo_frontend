@@ -52,7 +52,12 @@ class App extends React.Component {
         });
       }).catch(error => {
         if (error.response.status === 400) {
-          this.setState({bad_id: true})
+          this.setState({
+            game_id: null,
+            game_name: "none",
+            game_state: { board: [], players: [] },
+            bad_id: true
+          })
         }
       });
     });
