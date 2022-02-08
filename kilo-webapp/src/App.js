@@ -2,6 +2,7 @@ import Title from './Title';
 import Menu from './menu/Menu';
 import GameView from './GameView';
 import React from 'react';
+import ListGames from './menu/ListGames';
 
 class App extends React.Component {
   constructor(props) {
@@ -72,10 +73,11 @@ class App extends React.Component {
               />
             </div>
             <div className="col-8 text-center">
-              <GameView
+              {/*<GameView
                 gameName={this.state.game_name}
                 gameState={this.state.game_state}
-              />
+              />*/}
+              <ListGames />
             </div>
           </div>
         </div>
