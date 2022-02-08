@@ -19,3 +19,8 @@
     background-color: yellow !important;
     color: yellow !important;
 }
+
+#gamelist {
+    height: 30em;
+    overflow-y: auto;
+}

@@ -3,6 +3,7 @@ import Menu from './menu/Menu';
 import GameView from './GameView';
 import axios from "axios";
 import React from 'react';
+import ListGames from './menu/ListGames';
 
 class App extends React.Component {
   constructor(props) {
