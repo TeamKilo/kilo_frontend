@@ -5,7 +5,7 @@ function httpRequest(url, method, body) {
         alert(`${method} is not a valid method`);
         return {};
     }
-    axios({
+    return axios({
         url: url,
         mode: "no-cors",
         method: method,
@@ -15,8 +15,7 @@ function httpRequest(url, method, body) {
             "Content-Type": "application/json",
         },
     }).then(res => { console.log(res); return res.data.json() })
-        .then(res => alert(res))
-        .catch(res => console.log('Request failed', res));
+    .catch(res => console.log('Request failed', res));
 }
 
 export default httpRequest;

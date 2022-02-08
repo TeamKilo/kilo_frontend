@@ -17,6 +17,7 @@ class App extends React.Component {
 
   joinGame(game_id) {
     this.setState({game_id: game_id});
+    this.getGameState()
   }
 
   getGameState() {
@@ -24,7 +25,11 @@ class App extends React.Component {
       console.log("No game id");
       //return;
     }
-    //const data = httpRequest(`/api/${this.props.game_id}/get-state`, "GET", none);
+    /*
+    httpRequest(`/api/${this.props.game_id}/get-state`, "GET", none)
+    .then(data => {
+      var data = data;
+    }); */
     var data = {payload: [["a", "b"], [], ["b", "b", "b", "a"], ["a", "a", "b"], ["a", "b", "b", "a"], ["a", "a", "b", "a"], ["b", "a", "b", "b", "a"]], players: ["a", "b"], game_name: "connect_4"}
     var board = [[], [], [], [], [], []];
     const col_height = 6;
@@ -48,6 +53,10 @@ class App extends React.Component {
       game_state: {board: board, players: data.players},
       game_name: data.game_name
     });
+  }
+
+  waitForMove() {
+
   }
 
   render() {
