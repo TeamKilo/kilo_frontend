@@ -1,4 +1,4 @@
-function NoGame(props) {
+function NoGame() {
     return (
         <div className="card">
             <div className="card-header"><h4>Welcome to Kilo</h4></div>
