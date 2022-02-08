@@ -15,7 +15,7 @@ class JoinGame extends React.Component {
     }
 
     onSubmit(event) {
-        this.props.joinGame(this.state.gameID);
+        this.props.onJoin(this.state.gameID);
         event.preventDefault();
     }
     

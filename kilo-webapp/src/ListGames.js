@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class ListGames extends React.Component {
     constructor(props) {
@@ -61,11 +62,11 @@ class ListGames extends React.Component {
                     players = this.state[id].players.map((name) => <span className="badge bg-secondary" key={name}>{name}</span>);
                 }
                 return (
-                    <a key={id} href="#" className="list-group-item list-group-item-action" onClick={() => {this.props.joinGame(id)}}>
+                    <Link key={id} to={"/view/" + id} className="list-group-item list-group-item-action">
                         <h5 className="mb-1">{id}</h5>
                         <small className="text-muted">{this.state[id].type}, {this.state[id].status}.</small>
                         <p className="mb-1">Players: {players}</p>
-                    </a>
+                    </Link>
                 );
             });
             content = (

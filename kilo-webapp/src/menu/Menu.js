@@ -1,35 +1,17 @@
 import JoinGame from "./JoinGame";
-import React from 'react';
 import CreateGame from "./CreateGame";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-class Menu extends React.Component {
-  constructor(props) {
-    super(props);
+function Menu(props) {
+    let navigate = useNavigate();
 
-    this.state = {createdID: null}
-
-    this.createGame = this.createGame.bind(this);
-  }
-
-  createGame() {
-    axios.post("https://team-kilo-server.herokuapp.com/api/create-game", { name: "connect_4" })
-    .then(res =>
-    {
-      const game_id = res.data.game_id;
-      this.setState({ createdID: game_id.toString() });
-      this.props.joinGame(game_id);
-    });
-  }
-
-  render() {
     return (
-      <div className="d-grid gap-2">
-        <JoinGame joinGame={this.props.joinGame} />
-        <CreateGame createdID={this.state.createdID} createGame={this.createGame} />
-      </div>
+        <div className="d-grid gap-2">
+            <JoinGame onJoin={id => navigate("/view/" + id)} />
+            <button type="button" className="btn btn-primary" onClick={() => navigate("/list")}>List Games</button>
+            <CreateGame onCreated={id => navigate("/view/" + id)} />
+        </div>
     );
-  }
 }
 
 export default Menu;
