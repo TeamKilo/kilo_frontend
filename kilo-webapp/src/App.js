@@ -15,10 +15,17 @@ class App extends React.Component {
       game_state: {board:[], players:[]},
       bad_id: false,
     }
+    
+    this.cancelTokenSource = axios.CancelToken.source();
   }
 
   joinGame(game_id) {
-    this.setState({ game_id: game_id }, this.getGameState);
+    this.setState({ game_id: game_id }, () => {
+      this.getGameState();
+      this.cancelTokenSource.cancel();
+      this.cancelTokenSource = axios.CancelToken.source();
+      this.waitForMove();
+    });
   }
 
   getGameState() {
@@ -64,7 +71,37 @@ class App extends React.Component {
   }
 
   waitForMove() {
-
+    console.log("waiting...");
+    axios.get(
+      `https://team-kilo-server.herokuapp.com/api/${this.state.game_id}/wait-for-update`,
+      {cancelToken: this.cancelTokenSource.token}
+    ).then(res => {
+      setTimeout(() =>
+      {
+        if (res.data.updated) {
+          this.getGameState();
+          this.waitForMove();
+        }
+        else {
+          this.waitForMove();
+        }
+      }, 100);
+    }).catch(e => {
+      if (e.constructor.name !== "Cancel") {
+        if (e.response !== undefined) {
+          if (e.response.status === 400) {
+            this.setState({
+              game_id: null,
+              game_name: "none",
+              game_state: { board: [], players: [] },
+              bad_id: true
+            })
+          }
+        } else {  // Need to distinguish between timeout and other network errors
+            this.waitForMove();  // Timeout
+        }
+      }
+    });
   }
 
   render() {
