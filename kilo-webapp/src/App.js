@@ -13,46 +13,47 @@ class App extends React.Component {
       game_id: null,
       game_name: "none",
       game_state: {board:[], players:[]},
+      bad_id: false,
     }
   }
 
   joinGame(game_id) {
-    this.setState({game_id: game_id});
-    this.getGameState()
+    this.setState({ game_id: game_id }, this.getGameState);
   }
 
   getGameState() {
-    if (this.state.game_id == null) {
-      console.log("No game id");
-      return;
-    }
-    axios.get(`https://team-kilo-server.herokuapp.com/api/${this.state.game_id}/get-state`)
-    .then(res => {
-      //var data = {payload: [["a", "b"], [], ["b", "b", "b", "a"], ["a", "a", "b"], ["a", "b", "b", "a"], ["a", "a", "b", "a"], ["b", "a", "b", "b", "a"]], players: ["a", "b"], game_name: "connect_4"}
-      let board = [[], [], [], [], [], []];
-      const col_height = 6;
-      if (res.data.payload.length === 0) {
-        board = board.map(l => [0, 0, 0, 0, 0, 0, 0]);
-      } else {
-        res.data.payload.forEach((col) => {
-          for (var y = 0; y < col_height; y++) {
-            if (y < col.length) {
-              if (col[y] === res.data.players[0]) {
-                board[(col_height - 1) - y].push(1);
+    this.setState({bad_id: false}, () => {
+      axios.get(`https://team-kilo-server.herokuapp.com/api/${this.state.game_id}/get-state`).then(res => {
+        //var data = {payload: [["a", "b"], [], ["b", "b", "b", "a"], ["a", "a", "b"], ["a", "b", "b", "a"], ["a", "a", "b", "a"], ["b", "a", "b", "b", "a"]], players: ["a", "b"], game_name: "connect_4"}
+        let board = [[], [], [], [], [], []];
+        const col_height = 6;
+        if (res.data.payload.length === 0) {
+          board = board.map(l => [0, 0, 0, 0, 0, 0, 0]);
+        } else {
+          res.data.payload.forEach((col) => {
+            for (var y = 0; y < col_height; y++) {
+              if (y < col.length) {
+                if (col[y] === res.data.players[0]) {
+                  board[(col_height - 1) - y].push(1);
+                }
+                else if (col[y] === res.data.players[1]) {
+                  board[(col_height - 1) - y].push(2);
+                }
               }
-              else if (col[y] === res.data.players[1]) {
-                board[(col_height - 1) - y].push(2);
+              else {
+                board[(col_height - 1) - y].push(0);
               }
             }
-            else {
-              board[(col_height - 1) - y].push(0);
-            }
-          }
+          });
+        }
+        this.setState({
+          game_state: { board: board, players: res.data.players},
+          game_name: res.data.game
         });
-      }
-      this.setState({
-        game_state: { board: board, players: res.data.players},
-        game_name: res.data.game
+      }).catch(error => {
+        if (error.response.status === 400) {
+          this.setState({bad_id: true})
+        }
       });
     });
   }
@@ -77,6 +78,7 @@ class App extends React.Component {
               <GameView
                 gameName={this.state.game_name}
                 gameState={this.state.game_state}
+                badID={this.state.bad_id}
               />
             </div>
           </div>
