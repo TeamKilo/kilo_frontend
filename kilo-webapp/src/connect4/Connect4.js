@@ -10,7 +10,7 @@ function Connect4(props) {
                 <Connect4Grid gridState={props.gameState.board} />
                 <Connect4Players names={props.gameState.players} />
             </div>
-            <div class="card-footer text-muted">
+            <div className="card-footer text-muted">
                 Game ID: {props.gameID}
             </div>
         </div>
