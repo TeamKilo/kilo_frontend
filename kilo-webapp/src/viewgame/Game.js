@@ -73,9 +73,7 @@ class Game extends React.Component {
                 this.getGameState();
                 this.waitForMove();
             } else {
-                setTimeout(() => {
-                    this.waitForMove();
-                }, 100);
+                this.waitForMove();
             }
         }).catch(e => {
             if (e.constructor.name !== "Cancel") {
@@ -104,7 +102,7 @@ class Game extends React.Component {
         } else {
             return (
                 <div className="alert alert-danger" role="alert">
-                    An error occured.
+                    An error occurred.
                 </div>
             );
         }
