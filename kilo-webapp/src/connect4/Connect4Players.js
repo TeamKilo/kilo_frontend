@@ -4,7 +4,7 @@ function Connect4Players(props) {
     return (
         <React.Fragment>
             {[0, 1].map(index =>
-                <p key={index}><span className={"player" + (index + 1)}>▉</span> {props.names.length > index ? props.names[index] : "Waiting for player..."}</p>
+                <p key={index}><span className={"player" + (index + 1)}>▉</span> {props.names.length > index ? props.names[index].substring(0, 32) : "Waiting for player..."}</p>
             )}
         </React.Fragment>
     );

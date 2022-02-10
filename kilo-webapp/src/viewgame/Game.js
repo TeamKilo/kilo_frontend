@@ -71,18 +71,15 @@ class Game extends React.Component {
         ).then(res => {  
             if (res.data.updated) {
                 this.getGameState();
-                this.waitForMove();
-            } else {
-                this.waitForMove();
             }
+            this.waitForMove();
         }).catch(e => {
             if (e.constructor.name !== "Cancel") {
+                console.log(e);
                 if (e.response !== undefined) {
                     if (e.response.status === 400) {
                         this.setState({ game_state: "bad_id" });
                     }
-                } else {  // Need to distinguish between timeout and other network errors
-                    this.waitForMove();  // Timeout
                 }
             }
         });
