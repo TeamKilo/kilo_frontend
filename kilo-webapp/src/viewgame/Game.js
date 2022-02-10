@@ -39,7 +39,7 @@ class Game extends React.Component {
             if (res.data.payload.length === 0) {
                 board = board.map(l => [0, 0, 0, 0, 0, 0, 0]);
             } else {
-                res.data.payload.forEach((col) => {
+                res.data.payload.cells.forEach((col) => {
                     for (var y = 0; y < col_height; y++) {
                         if (y < col.length) {
                             if (col[y] === res.data.players[0]) {
