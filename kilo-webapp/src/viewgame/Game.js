@@ -10,7 +10,6 @@ class Game extends React.Component {
         this.state = {
             game_type: "none",
             game_state: {},
-            bad_id: false,
         }
  
         this.aborter = new AbortController();
@@ -25,8 +24,7 @@ class Game extends React.Component {
         if (prevProps.id !== this.props.id) {
             this.setState({
                 game_type: "none",
-                game_state: {},
-                bad_id: false,
+                game_state: {}
             });
             this.aborter.abort();
             this.getGameState();
@@ -61,7 +59,7 @@ class Game extends React.Component {
             });
         }).catch(error => {
             if (error.response.status === 400) {
-                this.setState({ bad_id: true });
+                this.setState({ game_type: "bad_id" });
             }
         });
     }
@@ -83,7 +81,7 @@ class Game extends React.Component {
             if (e.constructor.name !== "Cancel") {
                 if (e.response !== undefined) {
                     if (e.response.status === 400) {
-                        this.setState({ bad_id: true });
+                        this.setState({ game_state: "bad_id" });
                     }
                 } else {  // Need to distinguish between timeout and other network errors
                     this.waitForMove();  // Timeout
@@ -93,14 +91,20 @@ class Game extends React.Component {
     }
 
     render() {
-        if (this.state.bad_id) {
+        if (this.state.game_type === "bad_id") {
             return <BadGameID />;
         } else if (this.state.game_type === "connect_4") {
             return <Connect4 gameState={this.state.game_state} gameID={this.props.id} />;
+        } else if (this.state.game_type === "none") {
+            return (
+                <div className="alert alert-primary" role="alert">
+                    Loading...
+                </div>
+            );
         } else {
             return (
                 <div className="alert alert-danger" role="alert">
-                    Error: unrecognised game.
+                    An error occured.
                 </div>
             );
         }
