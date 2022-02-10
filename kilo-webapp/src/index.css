@@ -1,3 +1,7 @@
+body {
+    user-select: none;
+}
+
 #heading {
     color: black;
     text-decoration: none;
@@ -23,6 +27,16 @@
 .player2 {
     background-color: yellow !important;
     color: yellow !important;
+}
+
+@media (min-width: 1000px) {
+    #game-id-container {
+        white-space: nowrap;
+    }
+}
+
+#game-id-display {
+    user-select: text;
 }
 
 #gamelist {
