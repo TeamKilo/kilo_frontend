@@ -53,7 +53,7 @@ class ListGames extends React.Component {
     }
 
     render() {
-        let content = <div className="alert alert-danger" role="alert">An error occured while fetching games.</div>;
+        let content = <div className="alert alert-danger" role="alert">An error occurred while fetching games.</div>;
 
         if (!this.state.error) {
             const games = this.state.games.map((id) => {
