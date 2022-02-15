@@ -10,7 +10,6 @@ function createGame(onGameCreated) {
 }
 
 function CreateGame(props) {
-    //const createdIDElement = props.createdID === null ? null : <div className="alert alert-success text-break" role="alert">Created game with ID: {props.createdID}</div>;
     return (
         <button type="button" className="btn btn-primary" onClick={() => createGame(props.onCreated)}>Create Game</button>
     );

@@ -5,9 +5,10 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './App';
 import ListGames from './ListGames';
-import ViewGame from './viewgame/ViewGame';
+import ViewGame from './game/ViewGame';
 import NoMatch from './NoMatch';
 import Welcome from './Welcome';
+import PlayGame from './game/PlayGame';
 
 ReactDOM.render(
     <React.StrictMode>
@@ -16,7 +17,8 @@ ReactDOM.render(
                 <Route path="/" element={<App />}>
                     <Route index element={<Welcome />} />
                     <Route path="list" element={<ListGames />} />
-                    <Route path="view/:id" element={<ViewGame />} />
+                    <Route path="view/:gameid" element={<ViewGame />} />
+                    <Route path="play/:gameid/:sessionid" element={<PlayGame />} />
                     <Route path="*" element={<NoMatch />} />
                 </Route>
             </Routes>

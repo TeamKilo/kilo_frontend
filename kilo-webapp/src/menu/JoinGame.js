@@ -21,7 +21,7 @@ class JoinGame extends React.Component {
     
     render() {
         return (
-            <form className="form-inline" onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
                 <div className="d-flex row">
                     <div className="col-9">
                         <input type="text" className="form-control" value={this.state.gameID} onChange={this.onChange} required="required" placeholder="Game ID" />
