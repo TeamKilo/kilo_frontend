@@ -40,7 +40,7 @@ class SubmitMove extends React.Component {
             <>
                 <form onSubmit={this.onSubmit}>
 
-                    <select class="form-select mb-2 w-25 ms-auto me-auto" value={this.state.move} onChange={this.onChange}>
+                    <select className="form-select mb-2 w-25 ms-auto me-auto" value={this.state.move} onChange={this.onChange}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
