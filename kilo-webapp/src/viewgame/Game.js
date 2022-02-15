@@ -54,7 +54,7 @@ class Game extends React.Component {
                 });
             }
             this.setState({
-                game_state: { board: board, players: res.data.players },
+                game_state: { board: board, players: res.data.players, status: res.data.state, winners: res.data.winners, canMove: res.data.can_move },
                 game_type: res.data.game
             });
         }).catch(error => {
