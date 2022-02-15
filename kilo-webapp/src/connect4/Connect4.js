@@ -6,9 +6,9 @@ import Status from "./Status";
 function Connect4(props) {
     return (
         <>
-            <Status status={props.gameState.status} winners={props.gameState.winners} canMove={props.gameState.canMove} />
             <Connect4Grid gridState={props.gameState.board} />
             <Connect4Players names={props.gameState.players} />
+            <Status status={props.gameState.status} winners={props.gameState.winners} canMove={props.gameState.canMove} />
         </>
 
     );
