@@ -8,25 +8,22 @@ body {
 }
 
 .connect4cell {
-    height: 2em;
+    position: absolute;
 }
 
 #connect4table {
-    margin-right: auto;
-    margin-left: auto;
-    width: 21em ;
-    table-layout: fixed;
-    border-color: black;
+    position: relative;
+    z-index: 1;
 }
 
 .player1 {
-    background-color: red !important;
     color: red !important;
+    fill: red !important;
 }
 
 .player2 {
-    background-color: yellow !important;
     color: yellow !important;
+    fill: yellow !important;
 }
 
 @media (min-width: 1000px) {
