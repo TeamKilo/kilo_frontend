@@ -13,13 +13,16 @@ class Game extends React.Component {
             game_type: "none",
             game_state: {},
         }
- 
-        this.aborter = new AbortController();
+
+        this.controller = new AbortController();
     }
 
     componentDidMount() {
-        this.getGameState();
-        this.waitForMove();
+        this.waitForUpdate(0);
+    }
+
+    componentWillUnmount() {
+        this.controller.abort();
     }
 
     componentDidUpdate(prevProps) {
@@ -28,9 +31,7 @@ class Game extends React.Component {
                 game_type: "none",
                 game_state: {}
             });
-            this.aborter.abort();
-            this.getGameState();
-            this.waitForMove();
+            this.waitForUpdate(0);
         }
     }
 
@@ -59,32 +60,30 @@ class Game extends React.Component {
                 game_state: { board: board, players: res.data.players, status: res.data.state, winners: res.data.winners, canMove: res.data.can_move },
                 game_type: res.data.game
             });
-        }).catch(error => {
-            if (error.response.status === 400) {
-                this.setState({ game_type: "bad_id" });
-            }
         });
     }
     
-    waitForMove() {
-        setTimeout(() => this.waitForMove(), 4000);
-        axios.get(
-            `https://team-kilo-server.herokuapp.com/api/${this.props.gameID}/wait-for-update`,
-            {signal: this.aborter.signal}
-        ).then(res => {  
-            if (res.data.updated) {
-                this.getGameState();
-            }
-        }).catch(e => {
-            if (e.constructor.name !== "Cancel") {
-                console.log(e);
-                if (e.response !== undefined) {
-                    if (e.response.status === 400) {
-                        this.setState({ game_state: "bad_id" });
+    waitForUpdate(since) {
+        if (this.state.game_type !== "bad_id") {
+            axios.get(
+                `https://team-kilo-server.herokuapp.com/api/${this.props.gameID}/wait-for-update?since=${since}`,
+                {signal: this.controller.signal}
+            ).then(res => {  
+                if (res.data.clock > since) {
+                    this.getGameState();
+                }
+                this.waitForUpdate(res.data.clock);
+            }).catch(error => {
+                if (!axios.isCancel(error)) {
+                    if (error.response.status === 400) {
+                        this.setState({ game_type: "bad_id" });
+                    } else {
+                        this.getGameState();
+                        this.waitForUpdate(since);
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     render() {
