@@ -6,7 +6,7 @@ function PlayGame(props) {
     const gameID = params.gameid;
     const sessionID = params.sessionid;
 
-    return <Game gameID={gameID} playing={true} sessionID={sessionID} />;
+    return <Game gameID={gameID} sessionID={sessionID} />;
 }
 
 export default PlayGame;

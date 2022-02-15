@@ -8,7 +8,7 @@ function ViewGame(props) {
 
     let navigate = useNavigate();
 
-    return <Game gameID={gameID} playing={false} onJoinAsPlayer={(sessionID) => {navigate("/play/" + gameID + "/" + sessionID)}} />;
+    return <Game gameID={gameID} onJoinAsPlayer={(sessionID) => {navigate("/play/" + gameID + "/" + sessionID)}} />;
 }
 
 export default ViewGame;
