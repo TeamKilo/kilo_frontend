@@ -59,7 +59,7 @@ class ListGames extends React.Component {
             const games = this.state.games.map((id) => {
                 let players = "none.";
                 if ((typeof this.state[id].players) === "object" && (typeof this.state[id].players.length) === "number" && this.state[id].players.length > 0) {
-                    players = this.state[id].players.map((name) => <><span className="badge bg-secondary" key={name}>{name.substring(0, 32)}</span><span> </span></>);
+                    players = this.state[id].players.map((name) => <React.Fragment key={name}><span className="badge bg-secondary">{name.substring(0, 32)}</span><span> </span></React.Fragment >);
                 }
                 return (
                     <Link key={id} to={"/view/" + id} className="list-group-item list-group-item-action">

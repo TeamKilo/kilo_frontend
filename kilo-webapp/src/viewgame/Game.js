@@ -65,6 +65,7 @@ class Game extends React.Component {
     }
     
     waitForMove() {
+        setTimeout(() => this.waitForMove(), 4000);
         axios.get(
             `https://team-kilo-server.herokuapp.com/api/${this.props.id}/wait-for-update`,
             {signal: this.aborter.signal}
@@ -72,7 +73,6 @@ class Game extends React.Component {
             if (res.data.updated) {
                 this.getGameState();
             }
-            this.waitForMove();
         }).catch(e => {
             if (e.constructor.name !== "Cancel") {
                 console.log(e);
