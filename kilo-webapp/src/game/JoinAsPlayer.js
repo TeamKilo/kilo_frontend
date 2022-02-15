@@ -5,7 +5,7 @@ class JoinAsPlayer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {username: "", errorText: ""};
+        this.state = { username: "" };
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -13,10 +13,7 @@ class JoinAsPlayer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.gameID !== this.props.gameID) {
-            this.setState({
-                username: "",
-                errorText: ""
-            });
+            this.setState({musername: "" });
         }
     }
 
@@ -36,7 +33,7 @@ class JoinAsPlayer extends React.Component {
             this.props.onGameJoined(sessionID);
         })
         .catch((error) => {
-            this.setState({errorText: "Failed to join game. Ensure there is space for more players and your username has not already been taken."});
+            alert("Failed to join game. Ensure there is space for more players and your username has not already been taken.");
         });
     }
 
@@ -47,7 +44,6 @@ class JoinAsPlayer extends React.Component {
                     <input type="text" className="form-control mb-2 w-50 ms-auto me-auto" value={this.state.username} onChange={this.onChange} required="required" placeholder="Username" />
                     <button type="submit" className="btn btn-primary mb-2">Join</button>
                 </form>
-                {this.state.errorText === "" ? null : <div className="alert alert-danger" role="alert">{this.state.errorText}</div>}
             </>
         );
     }

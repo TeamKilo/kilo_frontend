@@ -11,14 +11,6 @@ class SubmitMove extends React.Component {
         this.onChange = this.onChange.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.gameID !== this.props.gameID) {
-            this.setState({
-                move: "1",
-            });
-        }
-    }
-
     onChange(event) {
         this.setState({move: event.target.value});
     }
