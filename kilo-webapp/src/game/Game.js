@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import Connect4 from "../connect4/Connect4";
 import BadGameID from "./BadGameID";
+import JoinAsPlayer from "./JoinAsPlayer";
+import SubmitMove from "./SubmitMove";
 
 class Game extends React.Component {
     constructor(props) {
@@ -21,7 +23,7 @@ class Game extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.id !== this.props.id) {
+        if (prevProps.gameID !== this.props.gameID) {
             this.setState({
                 game_type: "none",
                 game_state: {}
@@ -33,7 +35,7 @@ class Game extends React.Component {
     }
 
     getGameState() {
-        axios.get(`https://team-kilo-server.herokuapp.com/api/${this.props.id}/get-state`).then(res => {
+        axios.get(`https://team-kilo-server.herokuapp.com/api/${this.props.gameID}/get-state`).then(res => {
             let board = [[], [], [], [], [], []];
             const col_height = 6;
             if (res.data.payload.length === 0) {
@@ -67,7 +69,7 @@ class Game extends React.Component {
     waitForMove() {
         setTimeout(() => this.waitForMove(), 4000);
         axios.get(
-            `https://team-kilo-server.herokuapp.com/api/${this.props.id}/wait-for-update`,
+            `https://team-kilo-server.herokuapp.com/api/${this.props.gameID}/wait-for-update`,
             {signal: this.aborter.signal}
         ).then(res => {  
             if (res.data.updated) {
@@ -89,7 +91,19 @@ class Game extends React.Component {
         if (this.state.game_type === "bad_id") {
             return <BadGameID />;
         } else if (this.state.game_type === "connect_4") {
-            return <Connect4 gameState={this.state.game_state} gameID={this.props.id} />;
+            return (
+                <div className="card">
+                    <div className="card-header"><h4>Connect 4</h4></div>
+                    <div className="card-body">
+                        <Connect4 gameState={this.state.game_state} gameID={this.props.gameID} />
+                        {this.state.game_state.status === "waiting" && !this.props.playing ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null}
+                        {this.props.playing ? <SubmitMove gameID={this.props.gameID} sessionID={this.props.sessionID}/> : null}
+                    </div>
+                    <div className="card-footer text-muted" id="game-id-container">
+                        Game ID: <span id="game-id-display">{this.props.gameID}</span>
+                    </div>
+                </div>
+            );
         } else if (this.state.game_type === "none") {
             return (
                 <div className="alert alert-primary" role="alert">
