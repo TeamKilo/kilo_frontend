@@ -43,7 +43,7 @@ class JoinAsPlayer extends React.Component {
     render() {
         return (
             <>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} className="mt-4">
                     <input type="text" className="form-control mb-2 w-50 ms-auto me-auto" value={this.state.username} onChange={this.onChange} required="required" placeholder="Username" />
                     <button type="submit" className="btn btn-primary mb-2">Join</button>
                 </form>

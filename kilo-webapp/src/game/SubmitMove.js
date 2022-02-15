@@ -38,8 +38,7 @@ class SubmitMove extends React.Component {
     render() {
         return (
             <>
-                <form onSubmit={this.onSubmit}>
-
+                <form onSubmit={this.onSubmit} className="mt-4">
                     <select className="form-select mb-2 w-25 ms-auto me-auto" value={this.state.move} onChange={this.onChange}>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -49,9 +48,7 @@ class SubmitMove extends React.Component {
                         <option value="6">6</option>
                         <option value="7">7</option>
                     </select>
-
                     <button type="submit" className="btn btn-primary mb-2">Submit Move</button>
-
                 </form>
             </>
         );
