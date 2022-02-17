@@ -9,11 +9,28 @@ body {
 
 .connect4cell {
     position: absolute;
+    --top: 0;
+    /*animation: fall calc(0.2s * var(--top)) ease-in;*/
+}
+
+@keyframes fall { 
+    from {
+        top: 0%;
+    }
+    to {
+        top: var(--top)px;
+    }
 }
 
 #connect4table {
     position: relative;
     z-index: 1;
+}
+
+.move-input {
+    position: absolute;
+    top: calc(0% - 5px);
+    z-index: 2;
 }
 
 .player1 {
