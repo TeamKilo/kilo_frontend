@@ -95,9 +95,11 @@ class Game extends React.Component {
                 <div className="card">
                     <div className="card-header"><h4>Connect 4</h4></div>
                     <div className="card-body">
-                        <Connect4 gameState={this.state.game_state} gameID={this.props.gameID} />
-                        {this.state.game_state.status === "waiting" && this.props.onJoinAsPlayer ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null}
-                        {this.props.sessionID ? <SubmitMove gameID={this.props.gameID} sessionID={this.props.sessionID}/> : null}
+                        <Connect4
+                            gameState={this.state.game_state}
+                            gameID={this.props.gameID}
+                            sessionID={this.props.sessionID} />
+                        {this.state.game_state.status === "waiting" && this.props.onJoinAsPlayer !== undefined ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null}
                     </div>
                     <div className="card-footer text-muted" id="game-id-container">
                         Game ID: <span id="game-id-display">{this.props.gameID}</span>
