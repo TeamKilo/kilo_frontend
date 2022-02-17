@@ -31,7 +31,7 @@ function Connect4Grid(props) {
                     }).join(" ")}
                 />
                 {[...Array(7).keys()].map(x => 
-                    <text fontSize="18" x={size * x + radius + width} y={size * (height + 1.5) - 3}>{x + 1}</text>
+                    <text key={x} fontSize="18" x={size * x + radius + width} y={size * (height + 1.5) - 3}>{x + 1}</text>
                 )}
             </svg>
             <div style={{ position: "absolute", left: `calc(50% - ${size * width / 2 - offset - 2}px)`, top: `calc(50% - ${size * (height + 1.5) / 2 - size - offset - 1}px )`}}>
@@ -41,6 +41,7 @@ function Connect4Grid(props) {
                             
                             return (
                                 <div
+                                    key={x + y * 7}
                                     className={"connect4cell " + colorClass[cell]}
                                     style={{left: (x * size), top: (y * size)}}
                                 >
@@ -49,6 +50,12 @@ function Connect4Grid(props) {
                             );
                         })
                     )
+                })}
+
+                {props.gridState[0].map((_, x) => {
+                    return (
+                        <div key={x} className="move-input" style={{ left: (x * size - offset), width: (size), height: (height * size) }} onClick={() => props.onColumnClicked(x)} />
+                    );
                 })}
             </div>
         </div>
