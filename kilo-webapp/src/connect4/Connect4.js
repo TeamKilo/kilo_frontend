@@ -2,6 +2,7 @@ import React from "react";
 import Connect4Grid from "./Connect4Grid";
 import Connect4Players from "./Connect4Players";
 import Status from "./Status";
+import axios from "axios"
 
 class Connect4 extends React.Component {
     constructor(props) {
