@@ -22,7 +22,7 @@ class ListGames extends React.Component {
         axios.get("https://team-kilo-server.herokuapp.com/api/list-games")
             .then((response) => {
                 for (let id of response.data) {
-                    this.setState({[id]: {type: "Loading...", status: "Loading...", players: []}});
+                    this.setState({[id]: {type: "Loading...", stage: "Loading...", players: []}});
                     axios.get("https://team-kilo-server.herokuapp.com/api/" + id + "/get-state")
                         .then((response) => {
                             let game = {};
@@ -31,12 +31,12 @@ class ListGames extends React.Component {
                             } else {
                                 game.type = "Unknown";
                             }
-                            if (response.data.state === "waiting") {
-                                game.status = "waiting for players";
-                            } else if (response.data.state === "in_progress") {
-                                game.status = "in progress";
-                            } else if (response.data.state === "ended") {
-                                game.status = "ended";
+                            if (response.data.stage === "waiting") {
+                                game.stage = "waiting for players";
+                            } else if (response.data.stage === "in_progress") {
+                                game.stage = "in progress";
+                            } else if (response.data.stage === "ended") {
+                                game.stage = "ended";
                             }
                             game.players = response.data.players;
                             this.setState({[id]: game});
@@ -64,7 +64,7 @@ class ListGames extends React.Component {
                 return (
                     <Link key={id} to={"/view/" + id} className="list-group-item list-group-item-action">
                         <h5 className="mb-1">{id}</h5>
-                        <small className="text-muted">{this.state[id].type}, {this.state[id].status}.</small>
+                        <small className="text-muted">{this.state[id].type}, {this.state[id].stage}.</small>
                         <p className="mb-1">Players: {players}</p>
                     </Link>
                 );

@@ -57,7 +57,7 @@ class Game extends React.Component {
                 });
             }
             this.setState({
-                game_state: { board: board, players: res.data.players, status: res.data.state, winners: res.data.winners, canMove: res.data.can_move },
+                game_state: { board: board, players: res.data.players, stage: res.data.stage, winners: res.data.winners, canMove: res.data.can_move },
                 game_type: res.data.game
             });
         });
@@ -98,7 +98,7 @@ class Game extends React.Component {
                             gameState={this.state.game_state}
                             gameID={this.props.gameID}
                             sessionID={this.props.sessionID} />
-                        {this.state.game_state.status === "waiting" && this.props.onJoinAsPlayer !== undefined ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null}
+                        {this.state.game_state.stage === "waiting" && this.props.onJoinAsPlayer !== undefined ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null}
                     </div>
                     <div className="card-footer text-muted" id="game-id-container">
                         Game ID: <span id="game-id-display">{this.props.gameID}</span>

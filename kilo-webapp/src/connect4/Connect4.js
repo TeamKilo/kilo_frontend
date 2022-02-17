@@ -25,7 +25,7 @@ class Connect4 extends React.Component {
                     gridState={this.props.gameState.board}
                     onColumnClicked={this.props.sessionID === undefined ? undefined : this.submitMove} />
                 <Connect4Players names={this.props.gameState.players} />
-                <Status status={this.props.gameState.status} winners={this.props.gameState.winners} canMove={this.props.gameState.canMove} />
+                <Status stage={this.props.gameState.stage} winners={this.props.gameState.winners} canMove={this.props.gameState.canMove} />
             </>
 
         );
