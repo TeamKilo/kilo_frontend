@@ -26,6 +26,7 @@ class Connect4 extends React.Component {
                     onColumnClicked={this.props.sessionID === undefined ? () => {} : this.submitMove} />
                 <Connect4Players names={this.props.gameState.players} />
                 <Status stage={this.props.gameState.stage} winners={this.props.gameState.winners} canMove={this.props.gameState.canMove} />
+                {this.props.sessionID === undefined ? null : <p className="text-muted mb-0">Click on the columns to submit your moves.</p>}
             </>
 
         );
