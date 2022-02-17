@@ -6,10 +6,13 @@ function Connect4Grid(props) {
     const height = props.gridState.length;
     const colorClass = ["", "player1", "player2"];
     const playingPiece = (
-        <svg width={radius * 2} height={radius * 2}>
+        <svg className="playing-piece" width={radius * 2} height={radius * 2}>
             <circle cx={radius} cy={radius} r={radius} stroke="black" />
         </svg>
     );
+
+    let playing = props.onColumnClicked !== undefined;
+    let submitMove = playing ? props.onColumnClicked : () => {};
 
     return (
         <div style={{ position: "relative" }}>
@@ -52,9 +55,9 @@ function Connect4Grid(props) {
                     )
                 })}
 
-                {props.gridState[0].map((_, x) => {
+                {(playing ? props.gridState[0] : []).map((_, x) => {
                     return (
-                        <div key={x} className="move-input" style={{ left: (x * size - offset), width: (size), height: (height * size) }} onClick={() => props.onColumnClicked(x)} />
+                        <div key={x} className="move-input" style={{ left: (x * size - offset), width: (size), height: (height * size) }} onClick={() => submitMove(x)} />
                     );
                 })}
             </div>
