@@ -3,7 +3,6 @@ import React from "react";
 import Connect4 from "../connect4/Connect4";
 import BadGameID from "./BadGameID";
 import JoinAsPlayer from "./JoinAsPlayer";
-import SubmitMove from "./SubmitMove";
 
 class Game extends React.Component {
     constructor(props) {

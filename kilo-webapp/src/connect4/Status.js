@@ -10,6 +10,7 @@ function Status(props) {
             return <p className="text-muted mb-0"><span className="badge bg-secondary">{props.winners[0]}</span> has won.</p>;
         }
     }
+    return null;
 }
 
 export default Status;
