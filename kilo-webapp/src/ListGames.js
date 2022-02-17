@@ -21,31 +21,29 @@ class ListGames extends React.Component {
     refresh() {
         axios.get("https://team-kilo-server.herokuapp.com/api/list-games")
             .then((response) => {
-                for (let id of response.data) {
-                    this.setState({[id]: {type: "Loading...", stage: "Loading...", players: []}});
-                    axios.get("https://team-kilo-server.herokuapp.com/api/" + id + "/get-state")
-                        .then((response) => {
-                            let game = {};
-                            if (response.data.game === "connect_4") {
-                                game.type = "Connect 4";
-                            } else {
-                                game.type = "Unknown";
-                            }
-                            if (response.data.stage === "waiting") {
-                                game.stage = "waiting for players";
-                            } else if (response.data.stage === "in_progress") {
-                                game.stage = "in progress";
-                            } else if (response.data.stage === "ended") {
-                                game.stage = "ended";
-                            }
-                            game.players = response.data.players;
-                            this.setState({[id]: game});
-                        })
-                        .catch((error) => {
-                            this.setState({error: true});
-                        })
-                }
-                this.setState({error: false, games: response.data});
+                const games = response.data.map((gameData) => {
+                    let game = {};
+
+                    if (gameData.game_type === "connect_4") {
+                        game.type = "Connect 4";
+                    } else {
+                        game.type = "Unknown";
+                    }
+
+                    if (gameData.stage === "waiting") {
+                        game.stage = "waiting for players";
+                    } else if (gameData.stage === "in_progress") {
+                        game.stage = "in progress";
+                    } else if (gameData.stage === "ended") {
+                        game.stage = "ended";
+                    }
+
+                    game.players = gameData.players;
+                    game.gameID = gameData.game_id;
+
+                    return game;
+                });
+                this.setState({error: false, games: games});
             })
             .catch((error) => {
                 this.setState({error: true});
@@ -56,15 +54,15 @@ class ListGames extends React.Component {
         let content = <div className="alert alert-danger" role="alert">An error occurred while fetching games.</div>;
 
         if (!this.state.error) {
-            const games = this.state.games.map((id) => {
+            const games = this.state.games.map((game) => {
                 let players = "none.";
-                if ((typeof this.state[id].players) === "object" && (typeof this.state[id].players.length) === "number" && this.state[id].players.length > 0) {
-                    players = this.state[id].players.map((name) => <React.Fragment key={name}><span className="badge bg-secondary">{name.substring(0, 32)}</span><span> </span></React.Fragment>);
+                if (game.players.length > 0) {
+                    players = game.players.map((name) => <React.Fragment key={name}><span className="badge bg-secondary">{name.substring(0, 32)}</span><span> </span></React.Fragment>);
                 }
                 return (
-                    <Link key={id} to={"/view/" + id} className="list-group-item list-group-item-action">
-                        <h5 className="mb-1">{id}</h5>
-                        <small className="text-muted">{this.state[id].type}, {this.state[id].stage}.</small>
+                    <Link key={game.gameID} to={"/view/" + game.gameID} className="list-group-item list-group-item-action">
+                        <h5 className="mb-1">{game.gameID}</h5>
+                        <small className="text-muted">{game.type}, {game.stage}.</small>
                         <p className="mb-1">Players: {players}</p>
                     </Link>
                 );
