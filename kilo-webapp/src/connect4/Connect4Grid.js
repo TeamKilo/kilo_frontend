@@ -6,7 +6,7 @@ function Connect4Grid(props) {
     const height = props.gridState.length;
     const colorClass = ["", "player1", "player2"];
     const playingPiece = (
-        <svg className="playing-piece" width={radius * 2} height={radius * 2}>
+        <svg width={radius * 2} height={radius * 2}>
             <circle cx={radius} cy={radius} r={radius} stroke="black" />
         </svg>
     );
@@ -46,7 +46,8 @@ function Connect4Grid(props) {
                                 <div
                                     key={x + y * 7}
                                     className={"connect4cell " + colorClass[cell]}
-                                    style={{left: (x * size), top: (y * size)}}
+                                    style={{ left: (x * size), top: (y * size), "--top": (y * size) + "px", "--y-index": y}}
+                                    data-full={cell ? "full" : ""}
                                 >
                                     {cell ? playingPiece : ""}
                                 </div>

@@ -11,17 +11,21 @@ body {
     position: absolute;
 }
 
-.playing-piece {
+.connect4cell[data-full="full"] {
     --top: 0;
-    /*animation: fall calc(0.2s * var(--top)) ease-in;*/
+    --y-index: 0;
+    animation: fall calc(500ms * ((var(--y-index) + 3) / 7))  ease-in;
 }
 
 @keyframes fall { 
-    from {
-        top: 0%;
+    0% {
+        top: -50px;
     }
-    to {
-        top: var(--top)px;
+    20% {
+        top: -50px;
+    }
+    100% {
+        top: var(--top);
     }
 }
 
