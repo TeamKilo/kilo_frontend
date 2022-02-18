@@ -10,6 +10,7 @@ function Menu(props) {
             <JoinGame onJoin={id => navigate("/view/" + id)} />
             <button type="button" className="btn btn-primary" onClick={() => navigate("/list")}>List Games</button>
             <CreateGame onCreated={id => navigate("/view/" + id)} />
+            <button type="button" className="btn btn-primary mb-4" onClick={() => navigate("/docs")}>View API Docs</button>
         </div>
     );
 }
