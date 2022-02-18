@@ -11,7 +11,7 @@ function createGame(onGameCreated) {
 
 function CreateGame(props) {
     return (
-        <button type="button" className="btn btn-primary mb-4" onClick={() => createGame(props.onCreated)}>Create Game</button>
+        <button type="button" className="btn btn-primary" onClick={() => createGame(props.onCreated)}>Create Game</button>
     );
 }
 

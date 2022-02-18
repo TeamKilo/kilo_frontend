@@ -9,6 +9,7 @@ import ViewGame from './game/ViewGame';
 import NoMatch from './NoMatch';
 import Welcome from './Welcome';
 import PlayGame from './game/PlayGame';
+import Docs from './Docs';
 
 ReactDOM.render(
     <React.StrictMode>
@@ -21,6 +22,7 @@ ReactDOM.render(
                     <Route path="play/:gameid/:sessionid" element={<PlayGame />} />
                     <Route path="*" element={<NoMatch />} />
                 </Route>
+                <Route path="docs" element={<Docs />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>,
