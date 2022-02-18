@@ -27,6 +27,7 @@ class Game extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.gameID !== this.props.gameID) {
             this.controller.abort();
+            this.controller = new AbortController();
             this.setState({
                 game_type: "none",
                 game_state: {}
