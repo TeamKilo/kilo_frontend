@@ -13,7 +13,8 @@ function Docs() {
                 allow-server-selection="false"
                 allow-authentication="false"
                 theme="light"
-                nav-bg-color="#ffffff"/>
+                nav-bg-color="#ffffff"
+                primary-color="#0d6efd" />
         </div>
 
     );
