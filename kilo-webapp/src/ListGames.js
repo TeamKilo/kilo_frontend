@@ -40,9 +40,11 @@ class ListGames extends React.Component {
 
                     game.players = gameData.players;
                     game.gameID = gameData.game_id;
+                    game.lastUpdated = gameData.last_updated;
 
                     return game;
                 });
+                games.sort((a, b) => a.lastUpdated < b.lastUpdated ? 1 : a.lastUpdated === b.lastUpdated ? 0 : -1);
                 this.setState({error: false, games: games});
             })
             .catch((error) => {
