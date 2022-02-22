@@ -12,7 +12,7 @@ class Connect4 extends React.Component {
     }
 
     submitMove(column) {
-        axios.post("https://team-kilo-server.herokuapp.com/api/" + this.props.gameID + "/submit-move", { session_id: this.props.sessionID, payload: {column: column} })
+        axios.post("https://team-kilo-server.herokuapp.com/api/" + this.props.gameID + "/submit-move", { session_id: this.props.sessionID, payload: {column: column, game_type: "connect_4"} })
         .catch((error) => {
             alert("Failed to submit move. Make sure it is your turn!");
         });

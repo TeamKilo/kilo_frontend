@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 function createGame(onGameCreated) {
-    axios.post("https://team-kilo-server.herokuapp.com/api/create-game", { name: "connect_4" })
+    axios.post("https://team-kilo-server.herokuapp.com/api/create-game", { game_type: "connect_4" })
     .then((res) => {
         const game_id = res.data.game_id;
         onGameCreated(game_id);
