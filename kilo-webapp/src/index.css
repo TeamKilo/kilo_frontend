@@ -68,3 +68,9 @@ body {
     height: 30em;
     overflow-y: auto;
 }
+
+#docs-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
