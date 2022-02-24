@@ -76,7 +76,7 @@ class Game extends React.Component {
                 this.waitForUpdate(res.data.clock);
             }).catch(error => {
                 if (!axios.isCancel(error)) {
-                    if (error.response.status === 400) {
+                    if (error.response.status === 400 || error.response.status === 404) {
                         this.setState({ game_type: "bad_id" });
                     } else {
                         this.getGameState();
