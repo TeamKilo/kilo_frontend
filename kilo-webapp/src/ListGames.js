@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { humanFriendly, playerElements } from './utils';
 
 class ListGames extends React.Component {
     constructor(props) {
@@ -24,11 +25,7 @@ class ListGames extends React.Component {
                 const games = response.data.map((gameData) => {
                     let game = {};
 
-                    if (gameData.game_type === "connect_4") {
-                        game.type = "Connect 4";
-                    } else {
-                        game.type = "Unknown";
-                    }
+                    game.type = humanFriendly(gameData.game_type);
 
                     if (gameData.stage === "waiting") {
                         game.stage = "waiting for players";
@@ -59,7 +56,7 @@ class ListGames extends React.Component {
             const games = this.state.games.map((game) => {
                 let players = "none.";
                 if (game.players.length > 0) {
-                    players = game.players.map((name) => <React.Fragment key={name}><span className="badge bg-secondary">{name.substring(0, 32)}</span><span> </span></React.Fragment>);
+                    players = playerElements(game.players);
                 }
                 return (
                     <Link key={game.gameID} to={"/view/" + game.gameID} className="list-group-item list-group-item-action">
