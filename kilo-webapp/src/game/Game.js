@@ -67,12 +67,13 @@ class Game extends React.Component {
     }
 
     wrapGameComponent(gameComponent) {
+        console.log(this.state.gameState)
         return (
             <div className="card">
                 <div className="card-header"><h4>{humanFriendly(this.state.gameState.payload.game_type)}</h4></div>
                 <div className="card-body">
                     {gameComponent}
-                    <Status stage={this.state.gameState.stage} winners={this.state.gameState.winners} canMove={this.state.gameState.canMove} />
+                    <Status stage={this.state.gameState.stage} winners={this.state.gameState.winners} canMove={this.state.gameState.can_move} />
                     {this.state.gameState.stage === "waiting" && this.props.onJoinAsPlayer !== undefined ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null}  
                 </div>
                 <div className="card-footer text-muted" id="game-id-container">
