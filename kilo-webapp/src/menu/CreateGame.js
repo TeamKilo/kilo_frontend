@@ -1,18 +1,49 @@
 import React from "react";
 import axios from "axios";
 
-function createGame(onGameCreated) {
-    axios.post("https://team-kilo-server.herokuapp.com/api/create-game", { game_type: "connect_4" })
-    .then((res) => {
-        const game_id = res.data.game_id;
-        onGameCreated(game_id);
-    });
-}
+class CreateGame extends React.Component {
+    constructor(props) {
+        super(props);
 
-function CreateGame(props) {
-    return (
-        <button type="button" className="btn btn-primary" onClick={() => createGame(props.onCreated)}>Create Game</button>
-    );
+        this.state = {gameType: "connect_4"};
+
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(event) {
+        this.setState({gameType: event.target.value});
+    }
+
+    onSubmit(event) {
+        axios.post("https://team-kilo-server.herokuapp.com/api/create-game", { game_type: this.state.gameType })
+        .then((res) => {
+            const game_id = res.data.game_id;
+            this.props.onCreated(game_id);
+        })
+        .catch((error) => {
+            alert("Failed to create game.");
+        });
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.onSubmit}>
+                <div className="d-flex row">
+                    <div className="col-9">
+                        <select className="form-select" value={this.state.gameType} onChange={this.onChange}>
+                            <option value="connect_4">Connect 4</option>
+                            <option value="snake">Snake</option>
+                        </select>
+                    </div>
+                    <div className="col-2 mr-auto">
+                        <button type="submit" className="btn btn-primary mb-2">Create</button>
+                    </div>
+                </div>
+            </form>
+        );
+    }
 }
 
 export default CreateGame;
