@@ -67,7 +67,6 @@ class Game extends React.Component {
     }
 
     wrapGameComponent(gameComponent) {
-        console.log(this.state.gameState)
         return (
             <div className="card">
                 <div className="card-header"><h4>{humanFriendly(this.state.gameState.payload.game_type)}</h4></div>
