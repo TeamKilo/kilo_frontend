@@ -1,7 +1,6 @@
 import React from "react";
 import Connect4Grid from "./Connect4Grid";
 import Connect4Players from "./Connect4Players";
-import Status from "./Status";
 import axios from "axios"
 
 class Connect4 extends React.Component {
@@ -18,15 +17,35 @@ class Connect4 extends React.Component {
         });
     }
 
+    parseGrid(cells, players) {
+        let board = [[], [], [], [], [], []];
+        const col_height = 6;
+
+        cells.forEach((col) => {
+            for (var y = 0; y < col_height; y++) {
+                if (y < col.length) {
+                    if (col[y] === players[0]) {
+                        board[(col_height - 1) - y].push(1);
+                    } else if (col[y] === players[1]) {
+                        board[(col_height - 1) - y].push(2);
+                    }
+                } else {
+                    board[(col_height - 1) - y].push(0);
+                }
+            }
+        });
+
+        return board;
+    }
+
     render() {
         return (
             <>
                 <Connect4Grid
-                    gridState={this.props.gameState.board}
+                    gridState={this.parseGrid(this.props.gameState.payload.cells, this.props.gameState.players)}
                     onColumnClicked={this.props.sessionID === undefined ? undefined : this.submitMove} />
                 <Connect4Players names={this.props.gameState.players} />
-                <Status stage={this.props.gameState.stage} winners={this.props.gameState.winners} canMove={this.props.gameState.canMove} />
-                {this.props.sessionID === undefined ? null : <p className="text-muted mb-0 mt-2">Click on the columns to submit your moves.</p>}
+                {this.props.sessionID === undefined ? null : <p className="text-muted mb-2">Click on the columns to submit your moves.</p>}
             </>
 
         );
