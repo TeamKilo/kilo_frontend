@@ -74,3 +74,14 @@ body {
     flex-direction: column;
     height: 100vh;
 }
+
+#canvas-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#snake-canvas {
+    width: min(450px, 95%);
+    background-color: rgb(151, 245, 0);
+}
