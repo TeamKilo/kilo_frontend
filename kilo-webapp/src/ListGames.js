@@ -69,7 +69,17 @@ class ListGames extends React.Component {
 
     refresh() {
         this.setState({games: []});
-        axios.get("https://team-kilo-server.herokuapp.com/api/list-games")
+        
+        const params = {
+            page: this.state.page,
+            sort_order: this.state.sortOrder,
+            sort_key: this.state.sortKey,
+            game_type: this.state.gameType === "any" ? null : this.state.gameType,
+            players: this.state.players === "any" ? null : this.players,
+            stage: this.state.stage === "any" ? null : this.state.stage
+        };
+
+        axios.get("https://team-kilo-server.herokuapp.com/api/list-games", {params: params})
             .then((response) => {
                 const games = response.data.map((gameData) => {
                     let game = {};
