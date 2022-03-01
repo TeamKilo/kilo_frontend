@@ -79,7 +79,7 @@ class ListGames extends React.Component {
             sort_order: this.state.sortOrder,
             sort_key: this.state.sortKey,
             game_type: this.state.gameType === "any" ? null : this.state.gameType,
-            players: this.state.players === "any" ? null : this.players,
+            players: this.state.players === "any" ? null : this.state.players,
             stage: this.state.stage === "any" ? null : this.state.stage
         };
 
