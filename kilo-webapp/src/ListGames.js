@@ -9,10 +9,58 @@ class ListGames extends React.Component {
 
         this.state = {
             error: false,
-            games: []
+            games: [],
+            page: 1,
+            sortOrder: "desc",
+            sortKey: "last_updated",
+            gameType: "any",
+            players: "any",
+            stage: "any"
         }
         
         this.refresh = this.refresh.bind(this);
+        this.nextPage = this.nextPage.bind(this);
+        this.prevPage = this.prevPage.bind(this);
+        this.updateSortOrder = this.updateSortOrder.bind(this);
+        this.updateSortKey = this.updateSortKey.bind(this);
+        this.updateGameType = this.updateGameType.bind(this);
+        this.updatePlayers = this.updatePlayers.bind(this);
+        this.updateStage = this.updateStage.bind(this);
+    }
+
+    nextPage() {
+        this.setState((state, props) => ({page: state.page + 1}));
+        this.refresh();
+    }
+
+    prevPage() {
+        this.setState((state, props) => ({page: Math.max(state.page - 1, 1)}));
+        this.refresh();
+    }
+
+    updateSortOrder(event) {
+        this.setState({sortOrder: event.target.value});
+        this.refresh();
+    }
+
+    updateSortKey(event) {
+        this.setState({sortKey: event.target.value});
+        this.refresh();
+    }
+
+    updateGameType(event) {
+        this.setState({gameType: event.target.value});
+        this.refresh();
+    }
+
+    updatePlayers(event) {
+        this.setState({players: event.target.value});
+        this.refresh();
+    }
+
+    updateStage(event) {
+        this.setState({stage: event.target.value});
+        this.refresh();
     }
 
     componentDidMount() {
@@ -20,6 +68,7 @@ class ListGames extends React.Component {
     }
 
     refresh() {
+        this.setState({games: []});
         axios.get("https://team-kilo-server.herokuapp.com/api/list-games")
             .then((response) => {
                 const games = response.data.map((gameData) => {
@@ -37,11 +86,9 @@ class ListGames extends React.Component {
 
                     game.players = gameData.players;
                     game.gameID = gameData.game_id;
-                    game.lastUpdated = gameData.last_updated;
 
                     return game;
                 });
-                games.sort((a, b) => a.lastUpdated < b.lastUpdated ? 1 : a.lastUpdated === b.lastUpdated ? 0 : -1);
                 this.setState({error: false, games: games});
             })
             .catch((error) => {
@@ -66,9 +113,10 @@ class ListGames extends React.Component {
                     </Link>
                 );
             });
+
             content = (
                 <div className="list-group" id="gamelist">
-                    {games}
+                    {games.length === 0 ? <p className="text-muted">No games to display.</p> : games}
                 </div>
             );
         }
@@ -78,8 +126,61 @@ class ListGames extends React.Component {
                 <div className="card">
                     <div className="card-header"><h4>Current Games</h4></div>
                     <div className="card-body">
-                        <button className="btn btn-primary mb-2" onClick={this.refresh}>Refresh</button>
+                        <div className="row mb-2 align-items-end">
+                            <div className="col">
+                                <label htmlFor="sortby" className="col-form-label">Sort by</label>
+                                <select id="sortby" className="form-select" value={this.state.sortKey} onChange={this.updateSortKey}>
+                                    <option value="last_updated">Updated</option>
+                                    <option value="game_type">Type</option>
+                                    <option value="players">Players</option>
+                                    <option value="stage">Stage</option>
+                                </select>
+                            </div>
+                            <div className="col">
+                                <label htmlFor="sortorder" className="col-form-label">Order</label>
+                                <select id="sortorder" className="form-select" value={this.state.sortOrder} onChange={this.updateSortOrder}>
+                                    <option value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </div>
+                            <div className="col">
+                                <label htmlFor="gametype" className="col-form-label">Game</label>
+                                <select id="gametype" className="form-select" value={this.state.gameType} onChange={this.updateGameType}>
+                                    <option value="any">Any</option>
+                                    <option value="connect_4">Connect 4</option>
+                                    <option value="snake">Snake</option>
+                                </select>
+                            </div>
+                            <div className="col">
+                                <label htmlFor="players" className="col-form-label">Players</label>
+                                <select id="players" className="form-select" value={this.state.players} onChange={this.updatePlayers}>
+                                    <option value="any">Any</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div className="col">
+                                <label htmlFor="stage" className="col-form-label">Stage</label>
+                                <select id="stage" className="form-select" value={this.state.stage} onChange={this.updateStage}>
+                                    <option value="any">Any</option>
+                                    <option value="waiting">Waiting</option>
+                                    <option value="in_progress">In progress</option>
+                                    <option value="ended">Ended</option>
+                                </select>
+                            </div>
+                            <div className="col-1">
+                                <button className="btn btn-primary" onClick={this.refresh}>⟳</button>
+                            </div>
+                         </div>
                         {content}
+                        <p className="mb-0 mt-2">
+                            <span className="link-primary" style={{cursor: "pointer"}} onClick={this.prevPage}>🡄 </span>
+                            {this.state.page}
+                            <span className="link-primary" style={{cursor: "pointer"}} onClick={this.nextPage}> 🡆</span>
+                        </p>
                     </div>
                 </div>
             </>
