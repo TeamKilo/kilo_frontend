@@ -28,39 +28,43 @@ class ListGames extends React.Component {
         this.updateStage = this.updateStage.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.page !== this.state.page
+            || prevState.sortOrder !== this.state.sortOrder
+            || prevState.sortKey !== this.state.sortKey
+            || prevState.gameType !== this.state.gameType
+            || prevState.players !== this.state.players
+            || prevState.stage !== this.state.stage) {
+                this.refresh();
+        }
+    }
+
     nextPage() {
         this.setState((state, props) => ({page: state.page + 1}));
-        this.refresh();
     }
 
     prevPage() {
         this.setState((state, props) => ({page: Math.max(state.page - 1, 1)}));
-        this.refresh();
     }
 
     updateSortOrder(event) {
         this.setState({sortOrder: event.target.value});
-        this.refresh();
     }
 
     updateSortKey(event) {
         this.setState({sortKey: event.target.value});
-        this.refresh();
     }
 
     updateGameType(event) {
         this.setState({gameType: event.target.value});
-        this.refresh();
     }
 
     updatePlayers(event) {
         this.setState({players: event.target.value});
-        this.refresh();
     }
 
     updateStage(event) {
         this.setState({stage: event.target.value});
-        this.refresh();
     }
 
     componentDidMount() {
