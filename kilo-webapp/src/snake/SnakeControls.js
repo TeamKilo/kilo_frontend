@@ -14,6 +14,7 @@ class SnakeControls extends React.Component {
             } else if (e.code === "ArrowRight") {
                 props.submitMove("right");
             }
+            e.preventDefault();
         };
     }
 
