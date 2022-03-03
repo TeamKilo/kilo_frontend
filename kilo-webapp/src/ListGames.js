@@ -191,9 +191,9 @@ class ListGames extends React.Component {
                          </div>
                         {content}
                         <p className="mb-0 mt-2">
-                            <span className="link-primary" style={{cursor: "pointer", visibility: this.state.page === 1 ? "hidden" : "visible"}} onClick={this.prevPage}>🡄 </span>
+                            <span className="link-primary" style={{cursor: "pointer", visibility: this.state.page === 1 ? "hidden" : "visible"}} onClick={this.prevPage}>{"<-"} </span>
                             {this.state.page}
-                            <span className="link-primary" style={{cursor: "pointer"}} onClick={this.nextPage}> 🡆</span>
+                            <span className="link-primary" style={{cursor: "pointer"}} onClick={this.nextPage}> {"->"}</span>
                         </p>
                     </div>
                 </div>
