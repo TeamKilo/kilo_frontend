@@ -141,7 +141,7 @@ class ListGames extends React.Component {
                     <div className="card-header"><h4>Current Games</h4></div>
                     <div className="card-body">
                         <div className="row mb-2 align-items-end">
-                            <div className="col">
+                            <div className="col-sm">
                                 <label htmlFor="sortby" className="col-form-label">Sort by</label>
                                 <select id="sortby" className="form-select" value={this.state.sortKey} onChange={this.updateSortKey}>
                                     <option value="last_updated">Updated</option>
@@ -150,14 +150,14 @@ class ListGames extends React.Component {
                                     <option value="stage">Stage</option>
                                 </select>
                             </div>
-                            <div className="col">
+                            <div className="col-sm">
                                 <label htmlFor="sortorder" className="col-form-label">Order</label>
                                 <select id="sortorder" className="form-select" value={this.state.sortOrder} onChange={this.updateSortOrder}>
                                     <option value="asc">Ascending</option>
                                     <option value="desc">Descending</option>
                                 </select>
                             </div>
-                            <div className="col">
+                            <div className="col-sm">
                                 <label htmlFor="gametype" className="col-form-label">Game</label>
                                 <select id="gametype" className="form-select" value={this.state.gameType} onChange={this.updateGameType}>
                                     <option value="any">Any</option>
@@ -165,7 +165,7 @@ class ListGames extends React.Component {
                                     <option value="snake">Snake</option>
                                 </select>
                             </div>
-                            <div className="col">
+                            <div className="col-sm">
                                 <label htmlFor="players" className="col-form-label">Players</label>
                                 <select id="players" className="form-select" value={this.state.players} onChange={this.updatePlayers}>
                                     <option value="any">Any</option>
@@ -176,7 +176,7 @@ class ListGames extends React.Component {
                                     <option value="4">4</option>
                                 </select>
                             </div>
-                            <div className="col">
+                            <div className="col-sm">
                                 <label htmlFor="stage" className="col-form-label">Stage</label>
                                 <select id="stage" className="form-select" value={this.state.stage} onChange={this.updateStage}>
                                     <option value="any">Any</option>
@@ -185,8 +185,8 @@ class ListGames extends React.Component {
                                     <option value="ended">Ended</option>
                                 </select>
                             </div>
-                            <div className="col-1">
-                                <button className="btn btn-primary" onClick={this.refresh}>⟳</button>
+                            <div className="col-sm-1">
+                                <button className="btn btn-primary mt-2" onClick={this.refresh}>⟳</button>
                             </div>
                          </div>
                         {content}
