@@ -11,10 +11,7 @@ class Snake extends React.Component {
     }
 
     submitMove(direction) {
-        axios.post("https://team-kilo-server.herokuapp.com/api/" + this.props.gameID + "/submit-move", { session_id: this.props.sessionID, payload: {direction: direction, game_type: "snake"} })
-        .catch(_ => {
-            alert("Failed to submit move. Make sure it is your turn!");
-        });
+        axios.post("https://team-kilo-server.herokuapp.com/api/" + this.props.gameID + "/submit-move", { session_id: this.props.sessionID, payload: {direction: direction, game_type: "snake"} });
     }
 
     render() {
