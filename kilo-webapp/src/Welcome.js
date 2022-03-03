@@ -1,6 +1,6 @@
 function Welcome() {
     return (
-        <div className="card">
+        <div className="card mb-2">
             <div className="card-header"><h4>Welcome to Kilo</h4></div>
             <div className="card-body">
                 <p>To view the state of an existing game, type its game ID and click View.</p>

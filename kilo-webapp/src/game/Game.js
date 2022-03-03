@@ -68,7 +68,7 @@ class Game extends React.Component {
 
     wrapGameComponent(gameComponent) {
         return (
-            <div className="card">
+            <div className="card mb-2">
                 <div className="card-header"><h4>{humanFriendly(this.state.gameState.payload.game_type)}</h4></div>
                 <div className="card-body">
                     {gameComponent}

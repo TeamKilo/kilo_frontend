@@ -139,7 +139,7 @@ class ListGames extends React.Component {
 
         return (
             <>
-                <div className="card">
+                <div className="card mb-2">
                     <div className="card-header"><h4>Current Games</h4></div>
                     <div className="card-body">
                         <div className="row mb-2 align-items-end">
