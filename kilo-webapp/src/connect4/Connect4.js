@@ -1,6 +1,6 @@
 import React from "react";
 import Connect4Grid from "./Connect4Grid";
-import Connect4Players from "./Connect4Players";
+import Players from "../Players";
 import axios from "axios"
 
 class Connect4 extends React.Component {
@@ -44,7 +44,7 @@ class Connect4 extends React.Component {
                 <Connect4Grid
                     gridState={this.parseGrid(this.props.gameState.payload.cells, this.props.gameState.players)}
                     onColumnClicked={this.props.sessionID === undefined ? undefined : this.submitMove} />
-                <Connect4Players names={this.props.gameState.players} />
+                <Players names={this.props.gameState.players} colours={["red", "yellow"]} />
                 {this.props.sessionID === undefined ? null : <p className="text-muted mb-2">Click on the columns to submit your moves.</p>}
             </>
 

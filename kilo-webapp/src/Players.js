@@ -1,11 +1,11 @@
 import React from "react";
 
-function Connect4Players(props) {
+function Players(props) {
     return (
         <>
-            {[0, 1].map(index =>
+            {props.colours.map((colour, index) =>
                 <p key={index} className="mt-2">
-                    <span className={"player" + (index + 1)}>▉ </span>
+                    <span style={{color: colour}}>▉ </span>
                     <span className="badge bg-secondary">{props.names.length > index ? props.names[index] : "Waiting for player..."}</span>
                 </p>
             )}
@@ -13,4 +13,4 @@ function Connect4Players(props) {
     );
 }
 
-export default Connect4Players;
+export default Players;
