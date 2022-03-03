@@ -5,9 +5,14 @@ class SnakeCanvas extends React.Component {
         super(props);
 
         this.fruitColours = [249, 87, 56, 255];
+    }
 
-        this.canvasWidth = 100;
-        this.canvasHeight = 100;
+    getWidth() {
+        return this.props.worldMax.x - this.props.worldMin.x + 1;
+    }
+
+    getHeight() {
+        return this.props.worldMax.y - this.props.worldMin.y + 1;
     }
 
     componentDidMount() {
@@ -18,8 +23,8 @@ class SnakeCanvas extends React.Component {
     }
 
     drawCanvas() {
-        this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        var imageData = this.ctx.getImageData(0, 0, this.canvasWidth, this.canvasHeight);
+        this.ctx.clearRect(0, 0, this.getWidth(), this.getHeight());
+        var imageData = this.ctx.getImageData(0, 0, this.getWidth(), this.getHeight());
 
         this.props.fruits.forEach(position => {
             this.setColour(imageData, position, this.fruitColours);
@@ -36,8 +41,10 @@ class SnakeCanvas extends React.Component {
     }
 
     setColour(imageData, position, colour) {
-        var offset = ((this.canvasHeight - (position.y + this.canvasHeight / 2)) * imageData.width + (position.x + this.canvasWidth / 2)) * 4;
-        colour.forEach((value, index) => imageData.data[offset + index] = value);
+        if (position.x >= this.props.worldMin.x && position.x <= this.props.worldMax.x && position.y >= this.props.worldMin.y && position.y <= this.props.worldMax.y) {
+            var offset = ((this.getHeight() - (position.y - this.props.worldMin.y)) * imageData.width + (position.x - this.props.worldMin.x)) * 4;
+            colour.forEach((value, index) => imageData.data[offset + index] = value);
+        }
     }
 
     render() {
@@ -47,7 +54,7 @@ class SnakeCanvas extends React.Component {
 
         return (
             <div id="canvas-container">
-                <canvas id="snake-canvas" width={this.canvasWidth} height={this.canvasHeight} />
+                <canvas id="snake-canvas" width={this.getWidth()} height={this.getHeight()} />
             </div>
         );
     }

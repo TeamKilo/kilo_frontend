@@ -29,6 +29,8 @@ class Snake extends React.Component {
                     players={this.props.gameState.players}
                     positions={this.props.gameState.payload.players}
                     fruits={this.props.gameState.payload.fruits}
+                    worldMax={this.props.gameState.payload.world_max}
+                    worldMin={this.props.gameState.payload.world_min}
                     colours={this.snakeColours}
                 />
                 {this.props.sessionID === undefined ? null : <SnakeControls submitMove={this.submitMove} />}
