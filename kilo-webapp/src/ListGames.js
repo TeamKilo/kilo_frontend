@@ -11,6 +11,7 @@ class ListGames extends React.Component {
             error: false,
             games: [],
             page: 1,
+            maxPage: 1,
             sortOrder: "desc",
             sortKey: "last_updated",
             gameType: "any",
@@ -48,23 +49,23 @@ class ListGames extends React.Component {
     }
 
     updateSortOrder(event) {
-        this.setState({sortOrder: event.target.value});
+        this.setState({sortOrder: event.target.value, page: 1});
     }
 
     updateSortKey(event) {
-        this.setState({sortKey: event.target.value});
+        this.setState({sortKey: event.target.value, page: 1});
     }
 
     updateGameType(event) {
-        this.setState({gameType: event.target.value});
+        this.setState({gameType: event.target.value, page: 1});
     }
 
     updatePlayers(event) {
-        this.setState({players: event.target.value});
+        this.setState({players: event.target.value, page: 1});
     }
 
     updateStage(event) {
-        this.setState({stage: event.target.value});
+        this.setState({stage: event.target.value, page: 1});
     }
 
     componentDidMount() {
@@ -85,7 +86,7 @@ class ListGames extends React.Component {
 
         axios.get("https://team-kilo-server.herokuapp.com/api/list-games", {params: params})
             .then((response) => {
-                const games = response.data.map((gameData) => {
+                const games = response.data.game_summaries.map((gameData) => {
                     let game = {};
 
                     game.type = humanFriendly(gameData.game_type);
@@ -103,7 +104,8 @@ class ListGames extends React.Component {
 
                     return game;
                 });
-                this.setState({error: false, games: games});
+                const numberOfPages = Math.trunc((response.data.number_of_games / 20) + 1);
+                this.setState((prevState) => ({error: false, games: games, maxPage: numberOfPages, page: Math.min(numberOfPages, prevState.page)}));
             })
             .catch((error) => {
                 this.setState({error: true});
@@ -192,8 +194,8 @@ class ListGames extends React.Component {
                         {content}
                         <p className="mb-0 mt-2">
                             <span className="link-primary" style={{cursor: "pointer", visibility: this.state.page === 1 ? "hidden" : "visible"}} onClick={this.prevPage}>{"<-"} </span>
-                            {this.state.page}
-                            <span className="link-primary" style={{cursor: "pointer"}} onClick={this.nextPage}> {"->"}</span>
+                            Page {this.state.page} of {this.state.maxPage}
+                            <span className="link-primary" style={{cursor: "pointer", visibility: this.state.page < this.state.maxPage ? "visible" : "hidden"}} onClick={this.nextPage}> {"->"}</span>
                         </p>
                     </div>
                 </div>
