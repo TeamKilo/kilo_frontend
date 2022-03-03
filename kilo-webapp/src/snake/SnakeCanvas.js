@@ -13,8 +13,8 @@ class SnakeCanvas extends React.Component {
                 [0, 0, 0, 255]
             ]
         }
-        this.canvasWidth = 200;
-        this.canvasHeight = 200;
+        this.canvasWidth = 100;
+        this.canvasHeight = 100;
     }
 
     componentDidMount() {
@@ -31,13 +31,10 @@ class SnakeCanvas extends React.Component {
         this.props.fruits.forEach(position => {
             this.setColour(imageData, position, this.colours.fruit);
         });
-        console.log(this.props.players);
-        this.props.players.forEach((player, index) => {
-            if (player in this.props.players) {
-                this.props.players[player].forEach(position => {
-                    this.setColour(imageData, position, this.colours.snakes[index]);
-                });
-            }
+        Object.values(this.props.players).forEach((positions, index) => {
+            positions.forEach(position => {
+                this.setColour(imageData, position, this.colours.snakes[index]);
+            });
         });
 
         this.ctx.putImageData(imageData, 0, 0);
