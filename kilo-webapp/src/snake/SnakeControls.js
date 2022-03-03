@@ -4,25 +4,25 @@ class SnakeControls extends React.Component {
     constructor(props) {
         super(props);
 
-        this.controller = new AbortController();
+        this.keyboardListener = (e) => {
+            if (e.code === "ArrowUp") {
+                props.submitMove("up");
+            } else if (e.code === "ArrowDown") {
+                props.submitMove("down");
+            } else if (e.code === "ArrowLeft") {
+                props.submitMove("left");
+            } else if (e.code === "ArrowRight") {
+                props.submitMove("right");
+            }
+        };
     }
 
     componentDidMount() {
-        document.addEventListener("keydown", (e) => {
-            if (e.code === "ArrowUp") {
-                this.props.submitMove("up");
-            } else if (e.code === "ArrowDown") {
-                this.props.submitMove("down");
-            } else if (e.code === "ArrowLeft") {
-                this.props.submitMove("left");
-            } else if (e.code === "ArrowRight") {
-                this.props.submitMove("right");
-            }
-        }, {signal: this.controller.signal});
+        document.addEventListener("keydown", this.keyboardListener);
     }
 
     componentWillUnmount() {
-        this.controller.abort();
+        document.removeEventListener("keydown", this.keyboardListener);
     }
 
     render() {
