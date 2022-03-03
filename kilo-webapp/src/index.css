@@ -44,16 +44,6 @@ body {
     cursor: pointer;
 }
 
-.player1 {
-    color: red !important;
-    fill: red !important;
-}
-
-.player2 {
-    color: yellow !important;
-    fill: yellow !important;
-}
-
 @media (min-width: 1000px) {
     #game-id-container {
         white-space: nowrap;
