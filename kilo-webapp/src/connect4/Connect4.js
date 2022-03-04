@@ -8,6 +8,7 @@ class Connect4 extends React.Component {
         super(props);
 
         this.submitMove = this.submitMove.bind(this);
+        this.colours = ["red", "yellow"];
     }
 
     submitMove(column) {
@@ -43,8 +44,10 @@ class Connect4 extends React.Component {
             <>
                 <Connect4Grid
                     gridState={this.parseGrid(this.props.gameState.payload.cells, this.props.gameState.players)}
-                    onColumnClicked={this.props.sessionID === undefined ? undefined : this.submitMove} />
-                <Players names={this.props.gameState.players} colours={["red", "yellow"]} />
+                    onColumnClicked={this.props.sessionID === undefined ? undefined : this.submitMove}
+                    colours={this.colours}
+                />
+                <Players names={this.props.gameState.players} colours={this.colours} />
                 {this.props.sessionID === undefined ? null : <p className="text-muted mb-2">Click on the columns to submit your moves.</p>}
             </>
 
