@@ -73,10 +73,23 @@ class Game extends React.Component {
                 <div className="card-body">
                     {gameComponent}
                     <Status stage={this.state.gameState.stage} winners={this.state.gameState.winners} canMove={this.state.gameState.can_move} />
-                    {this.state.gameState.stage === "waiting" && this.props.onJoinAsPlayer !== undefined ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null}  
+                    {this.state.gameState.stage === "waiting" && this.props.onJoinAsPlayer !== undefined ? <JoinAsPlayer gameID={this.props.gameID} onGameJoined={this.props.onJoinAsPlayer}/> : null} 
+                    {
+                    this.props.sessionID !== undefined ?
+                        <p className="mt-2 mb-0 text-muted">
+                            Warning: if you leave this page without making a note of the session ID below, you will not be able to submit moves.
+                            You may also save the URL of this page, which contains the session ID.
+                        </p> :
+                        null
+                    } 
                 </div>
                 <div className="card-footer text-muted" id="game-id-container">
-                    Game ID: <span id="game-id-display">{this.props.gameID}</span>
+                    Game ID: <span className="selectable">{this.props.gameID}</span>
+                    {
+                    this.props.sessionID !== undefined ?
+                        <> • Session ID: <span className="selectable">{this.props.sessionID}</span></> :
+                        null
+                    }
                 </div>
             </div>
         );
