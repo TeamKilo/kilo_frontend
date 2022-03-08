@@ -11,10 +11,10 @@ class Snake extends React.Component {
         this.submitMove = this.submitMove.bind(this);
 
         this.snakeColours = [
-            [35, 201, 255, 255],
-            [255, 255, 0, 255],
-            [203, 99, 207, 255],
-            [0, 0, 0, 255]
+            [35, 201, 255],
+            [255, 255, 0],
+            [203, 99, 207],
+            [0, 0, 0]
         ]
     }
 

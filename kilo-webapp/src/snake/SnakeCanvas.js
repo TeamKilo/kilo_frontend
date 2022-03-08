@@ -4,15 +4,16 @@ class SnakeCanvas extends React.Component {
     constructor(props) {
         super(props);
 
-        this.fruitColours = [249, 87, 56, 255];
+        this.fruitColours = [249, 87, 56];
+        this.size = {x: 440, y: 440};
     }
 
-    getWidth() {
-        return this.props.worldMax.x - this.props.worldMin.x + 1;
+    getScaleX() {
+        return this.size.x / (this.props.worldMax.x - this.props.worldMin.x + 1)
     }
 
-    getHeight() {
-        return this.props.worldMax.y - this.props.worldMin.y + 1;
+    getScaleY() {
+        return this.size.y / (this.props.worldMax.y - this.props.worldMin.y + 1)
     }
 
     componentDidMount() {
@@ -23,27 +24,29 @@ class SnakeCanvas extends React.Component {
     }
 
     drawCanvas() {
-        this.ctx.clearRect(0, 0, this.getWidth(), this.getHeight());
-        var imageData = this.ctx.getImageData(0, 0, this.getWidth(), this.getHeight());
-
+        this.ctx.clearRect(0, 0, this.size.x, this.size.y);
         this.props.fruits.forEach(position => {
-            this.setColour(imageData, position, this.fruitColours);
+            this.setColour(position, this.fruitColours);
         });
         this.props.players.forEach((player, index) => {
             if (player in this.props.positions) {
                 this.props.positions[player].forEach(position => {
-                    this.setColour(imageData, position, this.props.colours[index]);
+                    this.setColour(position, this.props.colours[index]);
                 });
             }
         });
-
-        this.ctx.putImageData(imageData, 0, 0);
     }
 
-    setColour(imageData, position, colour) {
+    setColour(position, colour) {
         if (position.x >= this.props.worldMin.x && position.x <= this.props.worldMax.x && position.y >= this.props.worldMin.y && position.y <= this.props.worldMax.y) {
-            var offset = ((this.getHeight() - (position.y - this.props.worldMin.y) - 1) * imageData.width + (position.x - this.props.worldMin.x)) * 4;
-            colour.forEach((value, index) => imageData.data[offset + index] = value);
+            this.ctx.fillStyle = `rgb(${colour[0]}, ${colour[1]}, ${colour[2]})`;
+            this.ctx.fillRect(
+                (position.x - this.props.worldMin.x) * this.getScaleX(),
+                (this.props.worldMax.y - position.y) * this.getScaleY(),
+                this.getScaleX(),
+                this.getScaleY()
+            );
+
         }
     }
 
@@ -54,7 +57,7 @@ class SnakeCanvas extends React.Component {
 
         return (
             <div id="canvas-container">
-                <canvas id="snake-canvas" width={this.getWidth()} height={this.getHeight()} />
+                <canvas id="snake-canvas" width={this.size.x} height={this.size.y} />
             </div>
         );
     }
