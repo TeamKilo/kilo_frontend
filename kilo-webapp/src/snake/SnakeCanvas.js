@@ -42,7 +42,7 @@ class SnakeCanvas extends React.Component {
 
     setColour(imageData, position, colour) {
         if (position.x >= this.props.worldMin.x && position.x <= this.props.worldMax.x && position.y >= this.props.worldMin.y && position.y <= this.props.worldMax.y) {
-            var offset = ((this.getHeight() - (position.y - this.props.worldMin.y)) * imageData.width + (position.x - this.props.worldMin.x)) * 4;
+            var offset = ((this.getHeight() - (position.y - this.props.worldMin.y) - 1) * imageData.width + (position.x - this.props.worldMin.x)) * 4;
             colour.forEach((value, index) => imageData.data[offset + index] = value);
         }
     }
