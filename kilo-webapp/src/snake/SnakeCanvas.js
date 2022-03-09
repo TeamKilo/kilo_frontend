@@ -9,11 +9,11 @@ class SnakeCanvas extends React.Component {
     }
 
     getScaleX() {
-        return this.size.x / (this.props.worldMax.x - this.props.worldMin.x + 1)
+        return this.size.x / (this.props.worldMax.x - this.props.worldMin.x + 1);
     }
 
     getScaleY() {
-        return this.size.y / (this.props.worldMax.y - this.props.worldMin.y + 1)
+        return this.size.y / (this.props.worldMax.y - this.props.worldMin.y + 1);
     }
 
     componentDidMount() {
@@ -31,28 +31,50 @@ class SnakeCanvas extends React.Component {
         this.props.players.forEach((player, index) => {
             if (player in this.props.positions) {
                 this.props.positions[player].forEach(position => {
-                    this.setColour(position, this.props.colours[index]);
+                    this.setColour(this.translatePosition(position), this.props.colours[index]);
                 });
+                let horizontal = this.props.positions[player].length > 1 ? this.props.positions[player][0].x - this.props.positions[player][1].x !== 0 : true;
+                this.drawEyes(this.translatePosition(this.props.positions[player][0]), horizontal);
             }
         });
     }
-
+    
+    translatePosition(position) {
+        return {x: position.x - this.props.worldMin.x, y: this.props.worldMax.y - position.y};
+    }
+    
     setColour(position, colour) {
-        if (position.x >= this.props.worldMin.x && position.x <= this.props.worldMax.x && position.y >= this.props.worldMin.y && position.y <= this.props.worldMax.y) {
-            this.ctx.fillStyle = `rgb(${colour[0]}, ${colour[1]}, ${colour[2]})`;
-            this.ctx.fillRect(
-                (position.x - this.props.worldMin.x) * this.getScaleX(),
-                (this.props.worldMax.y - position.y) * this.getScaleY(),
-                this.getScaleX(),
-                this.getScaleY()
-            );
+        this.ctx.fillStyle = `rgb(${colour[0]}, ${colour[1]}, ${colour[2]})`;
+        this.ctx.fillRect(position.x * this.getScaleX(), position.y * this.getScaleY(), this.getScaleX(), this.getScaleY());
+    }
 
+    drawEyes(position, horizontal=true) {
+        
+
+        const drawEye = (x, y) => {
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, 7, 0, 2 * Math.PI, false);
+            this.ctx.fillStyle = 'black';
+            this.ctx.fill();
+            this.ctx.lineWidth = 3;
+            this.ctx.strokeStyle = 'white';
+            this.ctx.stroke();
         }
+
+        if (horizontal) {
+            drawEye((position.x + 0.5) * this.getScaleX(), (position.y + 0.25) * this.getScaleY());
+            drawEye((position.x + 0.5) * this.getScaleX(), (position.y + 0.75) * this.getScaleY());
+        } else {
+            drawEye((position.x + 0.25) * this.getScaleX(), (position.y + 0.5) * this.getScaleY());
+            drawEye((position.x + 0.75) * this.getScaleX(), (position.y + 0.5) * this.getScaleY());
+        }
+
+        
     }
 
     render() {
         if (this.ctx !== undefined) {
-            this.drawCanvas()
+            this.drawCanvas();
         }
 
         return (
