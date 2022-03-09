@@ -5,7 +5,7 @@ class SnakeCanvas extends React.Component {
         super(props);
 
         this.fruitColours = [249, 87, 56];
-        this.size = {x: 440, y: 440};
+        this.size = {x: 660, y: 660};
     }
 
     getScaleX() {
@@ -53,10 +53,10 @@ class SnakeCanvas extends React.Component {
 
         const drawEye = (x, y) => {
             this.ctx.beginPath();
-            this.ctx.arc(x, y, 7, 0, 2 * Math.PI, false);
+            this.ctx.arc(x, y, 9, 0, 2 * Math.PI, false);
             this.ctx.fillStyle = 'black';
             this.ctx.fill();
-            this.ctx.lineWidth = 3;
+            this.ctx.lineWidth = 4;
             this.ctx.strokeStyle = 'white';
             this.ctx.stroke();
         }
