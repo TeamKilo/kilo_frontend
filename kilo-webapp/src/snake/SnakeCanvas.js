@@ -4,7 +4,7 @@ class SnakeCanvas extends React.Component {
     constructor(props) {
         super(props);
 
-        this.fruitColours = [249, 87, 56];
+        this.fruitColour = [249, 87, 56];
         this.size = {x: 660, y: 660};
     }
 
@@ -25,7 +25,7 @@ class SnakeCanvas extends React.Component {
     drawCanvas() {
         this.ctx.clearRect(0, 0, this.size.x, this.size.y);
         this.props.fruits.forEach(position => {
-            this.setColour(position, this.fruitColours);
+            this.setColour(this.translatePosition(position), this.fruitColour);
         });
         this.props.players.forEach((player, index) => {
             if (player in this.props.positions) {
