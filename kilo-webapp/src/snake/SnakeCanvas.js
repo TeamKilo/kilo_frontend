@@ -18,7 +18,6 @@ class SnakeCanvas extends React.Component {
 
     componentDidMount() {
         this.canvas = document.getElementById("snake-canvas");
-        this.canvas.style.imageRendering = "pixelated";
         this.ctx = this.canvas.getContext("2d");
         this.drawCanvas();
     }
@@ -49,8 +48,6 @@ class SnakeCanvas extends React.Component {
     }
 
     drawEyes(position, horizontal=true) {
-        
-
         const drawEye = (x, y) => {
             this.ctx.beginPath();
             this.ctx.arc(x, y, 9, 0, 2 * Math.PI, false);
@@ -68,8 +65,6 @@ class SnakeCanvas extends React.Component {
             drawEye((position.x + 0.25) * this.getScaleX(), (position.y + 0.5) * this.getScaleY());
             drawEye((position.x + 0.75) * this.getScaleX(), (position.y + 0.5) * this.getScaleY());
         }
-
-        
     }
 
     render() {
